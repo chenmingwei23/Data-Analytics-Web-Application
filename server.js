@@ -1,33 +1,55 @@
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
+}
 const mongo = require('mongodb').MongoClient
 const client = require('socket.io').listen(4000).sockets
 const express = require('express')
 const passport = require('passport')
 const flash = require('express-flash')
 const session = require('express-session')
+const methodOverride = require('method-override')
+const cookieParser = require('cookie-parser')
+
 
 const initializePassport = require('./passport-config')
-
+initializePassport(
+  passport,
+  email => users.find(user => user.email === email),
+  id => users.find(user => user.id === id)
+)
 
 const app = express()
 app.use(express.urlencoded({ extended: false }))
 app.set('view-engine', 'ejs')
 const bcrypt = require('bcrypt')
- 
+ app.set('view-engine', 'ejs')
+app.use(express.urlencoded({ extended: false }))
+app.use(flash())
+app.use(cookieParser());
+app.use(session({
+  secret: 'Assignment',
+  resave: false,
+  saveUninitialized: false
+}))
+app.use(passport.initialize())
+app.use(passport.session())
+app.use(methodOverride('_method'))
+
+
 const users = []
-mongo.connect('mongodb://localhost/login',function(err,db){
-  if(err) throw err;
 
-  console.log("connected to the database");
-  
-  client.on('connection', function(socket){
-    let login = db.collection('login');
-    socket.on('submit',function(data){
-    	
-    })
-  })
-});
 
-app.post('/register',async(req, res) => {
+app.post('/login', checkNotAuthenticated, passport.authenticate('local', {
+	  successRedirect: '/',
+	  failureRedirect: '/login',
+	  failureFlash: true
+}))
+	
+app.get('/', checkAuthenticated, (req, res) => {
+  res.render('index.ejs', { name: req.user.name })
+})
+
+app.post('/register', checkNotAuthenticated, async (req, res) => {
  try {
 	    const hashedPassword = await bcrypt.hash(req.body.password, 10)
 	    users.push({
@@ -43,12 +65,32 @@ app.post('/register',async(req, res) => {
 	  console.log(users)
 })
 
-app.get('/login', (req, res) => {
-  res.render("login.ejs")
+app.get('/login', checkNotAuthenticated, (req, res) => {
+  res.render('login.ejs')
 })
 
-app.get('/register', (req, res) => {
-  res.render("register.ejs")
+app.get('/register', checkNotAuthenticated, (req, res) => {
+  res.render('register.ejs')
 })
+
+function checkAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next()
+  }
+
+  res.redirect('/login')
+}
+
+app.delete('/logout', (req, res) => {
+	  req.logOut()
+	  res.redirect('/login')
+})
+
+function checkNotAuthenticated(req, res, next) {
+	  if (req.isAuthenticated()) {
+	    return res.redirect('/')
+	  }
+	  next()
+}
 
 app.listen(3000)
