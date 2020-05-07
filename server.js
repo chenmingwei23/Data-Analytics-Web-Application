@@ -2,13 +2,13 @@ if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
 }
 const mongo = require('mongodb').MongoClient
-const client = require('socket.io').listen(4000).sockets
 const express = require('express')
 const passport = require('passport')
 const flash = require('express-flash')
 const session = require('express-session')
 const methodOverride = require('method-override')
 const cookieParser = require('cookie-parser')
+var path = require('path');
 
 
 const initializePassport = require('./passport-config')
@@ -19,10 +19,12 @@ initializePassport(
 )
 
 const app = express()
-app.use(express.urlencoded({ extended: false }))
-app.set('view-engine', 'ejs')
 const bcrypt = require('bcrypt')
- app.set('view-engine', 'ejs')
+
+app.use(express.static(__dirname + '/public'));
+app.use(express.urlencoded({ extended: false }))
+app.set('views', path.join(__dirname,'/views'));
+app.use(express.static(path.join(__dirname, '/public')));
 app.use(express.urlencoded({ extended: false }))
 app.use(flash())
 app.use(cookieParser());
@@ -39,12 +41,14 @@ app.use(methodOverride('_method'))
 const users = []
 
 
-app.post('/login', checkNotAuthenticated, passport.authenticate('local', {
-	  successRedirect: '/',
-	  failureRedirect: '/login',
-	  failureFlash: true
-}))
-	
+//Here to login
+var login = require('./routes/login');
+app.use('/login', login);
+
+//Here to register
+var register = require('./routes/register');
+app.use('/register', register);
+
 app.get('/', checkAuthenticated, (req, res) => {
   res.render('index.ejs', { name: req.user.name })
 })
@@ -62,16 +66,8 @@ app.post('/register', checkNotAuthenticated, async (req, res) => {
 	  } catch {
 	    res.redirect('/register')
 	  }
-	  console.log(users)
 })
 
-app.get('/login', checkNotAuthenticated, (req, res) => {
-  res.render('login.ejs')
-})
-
-app.get('/register', checkNotAuthenticated, (req, res) => {
-  res.render('register.ejs')
-})
 
 function checkAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
