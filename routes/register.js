@@ -45,9 +45,11 @@ router.post('/', function (req, res, next) {
             if (err) throw err;
             console.log("Collection created!");
           });
-        db.collection("users").insertOne(userData, function(err, res) {
+        db.collection("users").insertOne(userData, function(err, result) {
             if (err) throw err;
             console.log("1 document inserted");
+            res.render('login.ejs');
+            db.close();
          });
     })
 });
