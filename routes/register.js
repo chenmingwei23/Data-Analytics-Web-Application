@@ -11,21 +11,18 @@ router.get('/', function (req, res, next) {
 router.post('/', function (req, res, next) {
     // get POST form data
 	console.log(req.body);
-    var name = req.body.name;
+	var firstname = req.body.firstname;
+    var lastname = req.body.lastname;
     var email = req.body.email;
     var password = req.body.password;
-    var userData = {ID:Date.now().toString(), name: name, email: email, password: password};
-
-    //validate the information exit
-    
-
-    //validate if the password same
+    var userData = {ID:Date.now().toString(), firstname: firstname, lastname: lastname, email: email, password: password};
 
     //connect DB
     var db = mongoose.createConnection('mongodb://localhost:27017/Assignment2');
     var Schema = new mongoose.Schema({
         ID: String,
-    	name: String,
+    	firstname: String,
+    	firstname: String,
         email: String,
         password: String
     });

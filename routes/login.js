@@ -19,7 +19,7 @@ router.post('/', function (req, res, next) {
     db.collection('users').findOne({email: email}, function(err, document) {
     	if(document.password == password) {
     		console.log("ok");
-    		res.render('index.ejs', { name: document.name })
+    		res.render('index.ejs', { name: document.firstname + " " + document.lastname })
     	}
     });
 });
