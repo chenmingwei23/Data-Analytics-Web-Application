@@ -17,9 +17,16 @@ router.post('/', function (req, res, next) {
     var db = mongoose.createConnection('mongodb://localhost:27017/Assignment2');
     var query = { email: email };
     db.collection('users').findOne({email: email}, function(err, document) {
+    	if(!document){
+            res.send('<h1>You do not have an account, please register before log in.</h1>');
+            res.render("register.ejs");
+            return;
+        }
     	if(document.password == password) {
     		console.log("ok");
     		res.render('index.ejs', { name: document.firstname + " " + document.lastname })
+    	}else{
+        	res.send('<h1>Wrong password, please go back and try again</h1>');
     	}
     });
 });

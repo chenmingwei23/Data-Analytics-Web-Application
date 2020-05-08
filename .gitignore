@@ -1,14 +1,2 @@
 .env
 node_modules
-mongo.connect('mongodb://localhost/login',function(err,db){
-  if(err) throw err;
-
-  console.log("connected to the database");
-  
-  client.on('connection', function(socket){
-    let login = db.collection('login');
-    socket.on('submit',function(data){
-    	
-    })
-  })
-});
