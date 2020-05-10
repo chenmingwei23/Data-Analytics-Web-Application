@@ -40,12 +40,15 @@ app.use('/login', login);
 var register = require('./routes/register');
 app.use('/register', register);
 
+var spa = require('./routes/SPA');
+app.use('/SPA', spa);
+
 app.delete('/logout', (req, res) => {
 	  req.logOut()
 	  res.redirect('/login')
 })
 app.get('/', function (req, res) {
-    res.render('login.ejs');
+    res.render('start.ejs');
 });
 
 app.listen(3000)

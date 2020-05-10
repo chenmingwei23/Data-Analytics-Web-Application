@@ -8,44 +8,21 @@
   </head>
   <body class="bg-white">
   <!--Introduction-->
-  <h5 class="text-center">Hi, <%= name %></h5>
   <div class="pricing-header px-10 py-10 pt-md-5 pb-md-4 mx-auto text-center ">
-    <h1 class="display-4">Wikipdia Analytics</h1>
+    <h1 class="display-4">Welcome to Wikipdia Analytics</h1>
   </div>
-
-  <div class="container-fluid">
-    <div class="card-deck mb-3 text-center">
-      <div class="card mb-4">
-        <div class="card-header bg-secondary">
-          <h4 class="my-0 font-weight-normal text-light">Overall Analytics</h4>
-        </div>
-        <div class="card-body bg-secondary">
-          <a class="btn btn-lg btn-block btn-warning" href="/SPA">Start Now</a>
-        </div>
-      </div>
-
-      <div class="card mb-4 box-shadow">
-        <div class="card-header bg-secondary">
-          <h4 class="my-0 font-weight-normal text-light">Individual Article Analytics</h4>
-        </div>
-        <div class="card-body bg-secondary">
-          <a class="btn btn-lg btn-block btn-warning" href="/SPA">Start Now</a>
-        </div>
-      </div>
-
-      <div class="card mb-4 box-shadow">
-        <div class="card-header bg-secondary">
-          <h4 class="my-0 font-weight-normal text-light">Author Analytics</h4>
-        </div>
-        <div class="card-body bg-secondary">
-          <a class="btn btn-lg btn-block btn-warning" href="/SPA">Start Now</a>
-        </div>
-      </div>
-    </div>
-    <form action="/logout?_method=DELETE" method="POST">
+  <div class="card-deck mb-4 text-right">
+	<form action="/login" method="GET" class="text-right col-md-1">
+    	<button style="display:block" class="btn btn-primary" value="Login">Log In</button>
+   	</form>
+   	<form action="/register" method="GET" class="text-right col-md-1">
+    	<button style="display:block" class="btn btn-primary" value="Login">Register</button>
+   	</form>
+    <form action="/logout?_method=DELETE" method="POST" class="col-md-1">
     	<button class="btn btn-primary" type="submit" value="Login">Log Out</button>
 	</form>
 
+ </div>
     <footer class="pt-4 my-md-20  border-top text-center">
       <div class="row">
         <div class="col-md">

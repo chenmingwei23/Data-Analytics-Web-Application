@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Analytics Page</title>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="/js/overall.js"></script>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link href="/stylesheets/analytics.css" rel="stylesheet">
+
+    <!--Bootstrap CSS-->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+</head>
+<body>
+<div class="pricing-header px-10 py-10 pt-md-5 pb-md-4 mx-auto text-center ">
+    <h1 class="display-4">Wikipdia Analytics</h1>
+</div>
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4 \">
+    <!--overall-->
+    <div id="overallanalytics" class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 ">
+        <h2 class="overallanalyticspoint text-info" id="overallanalyticspoint">Overall Analytics</h2>
+    </div>
+    <table class="table">
+        <tbody>
+        <tr>
+        	<form action="/spa/getStatus" method="get">
+    			<input type="submit" value="Get Status" name="Submit" id="frm1_submit" />
+			</form>
+			<th scope="col"><h7 class="text-dark">Articles with the highest number of revisions</h7></th>
+            <th scope="col"><h7 class="text-dark"><%= name1 %>, <%= name2 %></h7></th>
+            <th scope="col"><h7 class="text-dark">Number of Revisions</h7></th>
+            <th scope="col"><h7 class="text-dark"><%= number1 %>, <%= number2 %></h7></th>
+                      
+        </tr>
+        <tr>
+        	<th scope="col"><h7 class="text-dark">Articles with the Lowest number of revisions</h7></th>
+            <th scope="col"><h7 class="text-dark"><%= name3 %>, <%= name4 %></h7></th>
+            <th scope="col"><h7 class="text-dark">Number of Revisions</h7></th>
+            <th scope="col"><h7 class="text-dark" ><%= number3 %>, <%= number4 %></h7></th>
+        </tr>
+        </tbody>
+    </table>
+    <div id="individual" class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 ">
+        <h2 class="individualpoint text-info" id="individualpoint">Individual Article Analytics</h2>
+    </div>
+    <!--Author-->
+    <div id="author"></div>
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+        <h2 class=" authorpoint text-info" id="authorpoint">Author Analytics</h2>
+    </div>
+
+</main>
+
+<footer class="pt-4 my-md-20  border-top text-center">
+      <div class="row">
+        <div class="col-md">
+          <small class="d-block mb-3 text-muted">&copy; USYD 2020_Semester1_COMP5347 Web Application Development GROUP_29</small>
+        </div>
+      </div>
+ </footer>
+
+
+<! -- Bootstrap -->
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
+</body>
+</html>
