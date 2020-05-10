@@ -39,4 +39,4 @@ RevisionSchema.statics.findLowestRevision2 = function(callback){
 }
 
 var Revision = mongoose.model('Revision', RevisionSchema, 'revisions')
-module.exports = Revision
+module.exports = Revision;

@@ -1,7 +1,7 @@
-var f = require("fs")
+var fs = require("fs")
 var mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/wikipedia',function () {
+mongoose.connect('mongodb://localhost/Assignment2',function () {
     console.log('mongodb connected')
 });
 
@@ -21,10 +21,10 @@ var revSchema = new mongoose.Schema(
 			 	versionKey: false
 			})
 
-var revision=require("./app/model/revision")
-var bot = f.readFileSync('bot.txt').toString();
+var revision=require("./models/revision")
+var bot = fs.readFileSync('bot.csv').toString();
 var bots = bot.split("\n");
-var admin = fs.readFileSync('admin.txt').toString();
+var admin = fs.readFileSync('admin.csv').toString();
 var admins = admin.split("\n");
 
 function isBot(doc) {
@@ -58,7 +58,7 @@ function isAnon(doc) {
         return false;
 }
 var step =1;
-Revision.find({}).skip(0).limit(56947*2).exec(function (err,result) {
+revision.find({}).skip(0).limit(56947*2).exec(function (err,result) {
     if(err){
         console.log(err);
     }

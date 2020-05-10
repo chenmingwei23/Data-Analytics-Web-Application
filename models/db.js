@@ -5,3 +5,4 @@ mongoose.connect('mongodb://localhost/Assignment2', { useNewUrlParser: true }, f
 });
 
 module.exports = mongoose;
+
