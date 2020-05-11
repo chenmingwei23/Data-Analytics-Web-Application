@@ -6,6 +6,8 @@
 # Manually added files by author
 .env
 revisions
+bots.txt
+administrators.txt
 
 # User-specific files
 *.suo
