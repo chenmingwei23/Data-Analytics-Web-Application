@@ -37,7 +37,7 @@ function isBot(doc) {
         return true;
     else
         return false;
-}
+}	
 
 function isAdmin(doc) {
     var count = 0;
@@ -83,5 +83,5 @@ revision.find({}).skip(0).limit(56947*2).exec(function (err,result) {
         });
 
     })
-    console.log("finish");
+    console.log("finish!");
 });
