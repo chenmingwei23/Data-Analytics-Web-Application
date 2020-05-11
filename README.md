@@ -1,14 +1,40 @@
 # COMP5347-Assignment-2
 
-One Paragraph of project description goes here
+This is a Data Analytics Web Application.  It is a typical three-tier web application using MEAN stack and it can communicate with third party web site through published web services.
+
+Query and compute various summary statistics at the server-side and present the results on a web page.
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
-
 ### Prerequisites
 
-What things you need to install the software and how to install them
+- First cloning the directory into your local machine.
+
+- Download sample data set from https://canvas.sydney.edu.au/courses/21515/files/9949983/download?wrap=1. Extract the zip file and place all files within the main directory.
+
+- Install and  setup mongodb.
+
+  - For mac users
+
+    - Open terminal, brew install mongodb-community.
+
+    - mongod --dbpath "blah/random/path"
+
+    - mongo
+
+  - For windows users
+
+    - Get a Mac :)
+
+- Run project
+
+  - Using Eclipse run as node application
+
+  - Using Terminal navigating to home directory and run 'node server.js'
+
+  - Open up your browser and  navigate to  'localhost:3000'
+
+  - Sign up and login intuitively
 
 ```
 Give examples
