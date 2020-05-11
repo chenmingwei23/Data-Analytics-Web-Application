@@ -10,37 +10,46 @@ Query and compute various summary statistics at the server-side and present the 
 
 - First cloning the directory into your local machine.
 
-- Download sample data set from https://canvas.sydney.edu.au/courses/21515/files/9949983/download?wrap=1. Extract the zip file and place all files within the main directory.
+- Download sample data set from 
+```
+https://canvas.sydney.edu.au/courses/21515/files/9949983/download?wrap=1
+```
+Extract the zip file and place all files within the main directory.
 
 - Install and  setup mongodb.
 
   - For mac users
 
-    - Open terminal, brew install mongodb-community.
-
-    - mongod --dbpath "blah/random/path"
-
-    - mongo
-
+    - Open terminal
+    ```
+    brew install mongodb-community
+    mongod --dbpath "blah/random/path"
+    mongo
+    ```
   - For windows users
 
     - Get a Mac :)
 
 - Run project
 
-  - Open terminal and navigate to home directory run  'chmod  +x setup.sh' & 'setup.sh'
-
+  - Open terminal and navigate to home directory   
+  ```
+  'chmod  +x setup.sh' & 'setup.sh'
+  ```
+  
   - Using Eclipse run as node application
 
-  - Using Terminal run 'node server.js'
-
-  - Open up your browser and  navigate to  'localhost:3000'
-
+  - Using Terminal run 
+  ```
+  'node server.js'
+  ```
+  
+  - Open up your browser and  navigate to  
+  ```
+  'localhost:3000'
+  ```
+  
   - Sign up and login intuitively
-
-```
-Give examples
-```
 
 ### Installing
 
@@ -102,7 +111,7 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 * **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+See also the list of [contributors](https://github.sydney.edu.au/COMP5347-2020/COMP5347-Assignment-2/graphs/contributors) who participated in this project.
 
 ## License
 
