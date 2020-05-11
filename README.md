@@ -28,9 +28,11 @@ Query and compute various summary statistics at the server-side and present the 
 
 - Run project
 
+  - Open terminal and navigate to home directory run  'chmod  +x setup.sh' & 'setup.sh'
+
   - Using Eclipse run as node application
 
-  - Using Terminal navigating to home directory and run 'node server.js'
+  - Using Terminal run 'node server.js'
 
   - Open up your browser and  navigate to  'localhost:3000'
 
