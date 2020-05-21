@@ -50,5 +50,8 @@ app.delete('/logout', (req, res) => {
 app.get('/', function (req, res) {
     res.render('start.ejs');
 });
+app.get('/spa', function (req, res) {
+    res.render('spa.ejs');
+});
 
 app.listen(3000)

@@ -21,13 +21,13 @@
     <div id="overallanalytics" class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 bg-secondary card-body text-center">
         <h2 class="overallanalyticspoint text-warning text-center" id="overallanalyticspoint">Overall Analytics</h2>
     </div>
+    Input the number of revisions:
+    <input id =inputNumber type="text" value ="2">
+    <input class="btn btn-outline-light bg-primary"type="submit"  id="getNumber"value="Show">
     <table class="table">
+    	
         <tbody>
         <tr>
-                Input the number of revisions:
-                <input id =inputNumber type="text" value ="3">
-                <input class="btn btn-outline-light bg-primary"type="submit"  id="getNumber"value="Show">
-            </form>
             <table class="table">
                     <tbody>
                     <tr>
@@ -40,12 +40,28 @@
                     </tr>
                     </tbody>
             </table>
-			
-                      
         </tr>
-        </tbody>
-       
+        </tbody>  
     </table>
+    <table class="table">
+        <tbody>
+        <tr>
+            <table class="table">
+                    <tbody>
+                    <tr>
+                        <th scope="row"><h4 >Books with largest group of registered users  </h4></th>
+                        <th scope="row"><h4 >Books with smallest group of registered users </h4></th>
+                    </tr>
+                    <tr>
+                        <th><p id="getLargestGroup"></p></th>
+                        <th><p id="getSmallestGroup"></p></th>
+                    </tr>
+                    </tbody>
+            </table>               
+        </tr>
+        </tbody>  
+    </table>
+    
     <div id="individual" class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 bg-secondary card-body">
         <h2 class="individualpoint text-warning" id="individualpoint">Individual Article Analytics</h2>
     </div>

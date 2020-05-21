@@ -2,11 +2,19 @@ var express = require("express");
 var controller = require('../controllers/revision.server.controller');
 var router = express.Router();
 
-router.get('/', controller.getHighestRevision2)
-router.get('/getStatus', controller.getStatus)
+
+
+router.get('/getHighestRevid2', controller.getHighestRevision2)
+router.get('/getLowestRevid2', controller.getLowestRevision2)
+
 router.get('/getHighestRevid', controller.getHighestRevid)
 router.get('/getLowestRevid', controller.getLowestRevid)
-router.get('/getIndividualTitle', controller.getIndividualTitle)
+
+router.get('/getLargestGroup2', controller.getLargestGroup2)
+router.get('/getSmallestGroup2', controller.getSmallestGroup2)
+
+router.get('/getLargestGroup', controller.getLargestGroup)
+router.get('/getSmallestGroup', controller.getSmallestGroup)
 
 
 

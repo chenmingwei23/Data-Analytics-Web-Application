@@ -60,5 +60,45 @@ RevisionSchema.statics.findLowestRevid = function(inputNumber,callback){
         .exec(callback)
 }
 
+RevisionSchema.statics.findLargestGroup2 = function(callback){
+	
+	return this.aggregate([
+		{$group:{_id:{title:"$title",user:"$user"}, num: {$sum:1}}},
+		{$group:{_id:"$_id.title", number: {$sum:1}}},
+        {$sort:{number:-1}},
+        {$limit:2}
+		]).exec(callback)
+}
+
+RevisionSchema.statics.findSmallestGroup2 = function(callback){
+	
+	return this.aggregate([
+		{$group:{_id:{title:"$title",user:"$user"}, num: {$sum:1}}},
+		{$group:{_id:"$_id.title", number: {$sum:1}}},
+		{$sort:{number:1}},
+		{$limit:2}
+	]).exec(callback)
+}
+
+RevisionSchema.statics.findLargestGroup = function(inputNumber,callback){
+	
+	return this.aggregate([
+		{$group:{_id:{title:"$title",user:"$user"}, num: {$sum:1}}},
+		{$group:{_id:"$_id.title", number: {$sum:1}}},
+        {$sort:{number:-1}},
+        {$limit:parseInt(inputNumber)}
+		]).exec(callback)
+}
+
+RevisionSchema.statics.findSmallestGroup = function(inputNumber,callback){
+	
+	return this.aggregate([
+		{$group:{_id:{title:"$title",user:"$user"}, num: {$sum:1}}},
+		{$group:{_id:"$_id.title", number: {$sum:1}}},
+		{$sort:{number:1}},
+		{$limit:parseInt(inputNumber)}
+	]).exec(callback)
+}
+
 var Revision = mongoose.model('Revision', RevisionSchema, 'revisions')
 module.exports = Revision;
