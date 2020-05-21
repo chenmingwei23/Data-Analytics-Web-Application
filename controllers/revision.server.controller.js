@@ -34,3 +34,33 @@ module.exports.getStatus=function(req,res){
 	res.redirect(req.get('referer'));
 }
 
+module.exports.getHighestRevid=function(req,res){
+    inputNumber = req.query.inputNumber;
+	console.log("number is :", inputNumber);
+    Revision.findHighestRevid(inputNumber,function(err,result){
+    		console.log("result is :", result);
+            res.json(result);
+    })
+}
+
+module.exports.getLowestRevid=function(req,res){
+    inputNumber = req.query.inputNumber;
+	console.log("number is :", inputNumber);
+    Revision.findLowestRevid(inputNumber,function(err,result){
+    		console.log("result is :", result);
+            res.json(result);
+    })
+}
+
+module.exports.getIndividualTitle=function(req,res){
+    inputTitle = req.query.inputTitle;
+    //console(inputTitle)
+    Revision.findIndividualTitle(inputTitle, function(err,revision){
+        if (err){
+            console.log("Cannot find " + inputTitle + ",s latest revision!")
+        }
+        else{
+            res.json(revision);
+        }
+    })
+}

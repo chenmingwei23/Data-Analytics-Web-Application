@@ -38,5 +38,27 @@ RevisionSchema.statics.findLowestRevision2 = function(callback){
         .exec(callback)
 }
 
+RevisionSchema.statics.findHighestRevid = function(inputNumber,callback){
+	
+	return this.aggregate([
+        {$match:{title:{$exists:true}}},
+        {$group:{_id:"$title",numOfRevid:{$sum:1}}},
+        {$sort:{numOfRevid:-1}},
+        {$limit:parseInt(inputNumber)}
+	])
+	.exec(callback)
+}
+
+RevisionSchema.statics.findLowestRevid = function(inputNumber,callback){
+
+    return this.aggregate([
+        {$match:{title:{$exists:true}}},
+        {$group:{_id:"$title",numOfRevid:{$sum:1}}},
+        {$sort:{numOfRevid:1}},
+        {$limit:parseInt(inputNumber)}
+    ])
+        .exec(callback)
+}
+
 var Revision = mongoose.model('Revision', RevisionSchema, 'revisions')
 module.exports = Revision;
