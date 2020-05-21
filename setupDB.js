@@ -27,6 +27,7 @@ var bots = bot.split("\n");
 var admin = fs.readFileSync('admin.csv').toString();
 var admins = admin.split("\n");
 
+
 function isBot(doc) {
     var count = 0;
     for(var i = 0; i< bots.length;i++){
@@ -58,11 +59,25 @@ function isAnon(doc) {
         return false;
 }
 var step =1;
+
+revision.find({}).skip(0).limit(56947*2).exec(function(err,result){
+	console.log("Changing date to ISODate");
+	result.forEach(function(doc){
+		console.log("Changing date to ISODate");
+		doc.timestamp = new Date(doc.timestamp);
+		db.revisions.save(doc)
+
+	});
+});
+
+
 revision.find({}).skip(0).limit(56947*2).exec(function (err,result) {
     if(err){
         console.log(err);
     }
     console.log('getin');
+    
+    
     result.forEach(function(doc){
         if(isAdmin(doc)){
         	doc.set({type: 'admin' });
@@ -85,3 +100,4 @@ revision.find({}).skip(0).limit(56947*2).exec(function (err,result) {
     })
     console.log("finish!!!");
 });
+

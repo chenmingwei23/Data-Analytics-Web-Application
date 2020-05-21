@@ -96,6 +96,14 @@ module.exports.getShortestHis=function(req,res){
     })
 }
 
+module.exports.getBar=function(req,res){
+    inputTitle = req.query.inputTitle;
+    Revision.findShortestHis(inputNumber,function(err,result){
+		console.log("result is :", result);
+        res.json(result);
+})
+    
+}
 
 module.exports.getIndividualTitle=function(req,res){
     inputTitle = req.query.inputTitle;

@@ -19,6 +19,7 @@ router.get('/getSmallestGroup', controller.getSmallestGroup)
 router.get('/getLongestHis', controller.getLongestHis)
 router.get('/getShortestHis', controller.getShortestHis)
 
+router.get('/getBar', controller.getBar)
 
 
 

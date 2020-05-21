@@ -20,6 +20,7 @@
     <!--overall-->
     <div id="overallanalytics" class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 bg-secondary card-body text-center">
         <h2 class="overallanalyticspoint text-warning text-center" id="overallanalyticspoint">Overall Analytics</h2>
+        
     </div>
     Input the number of revisions:
     <input id =inputNumber type="text" value ="2">
@@ -78,7 +79,28 @@
             </table>               
         </tr>
         </tbody>  
+    <div class="dropdown text-right">
+            <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Overall Analytics
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="btn dropdown-item text-info" id="bar">Bar Chart</a>
+                <a class="btn dropdown-item text-info" id="pie">Pie Chart</a>
+            </div>
+            <div class="carousel-item">
+                <div id="myPieChart"></div>
+                <!--<h4>Pie</h4>-->
+                <p id="barchart"></p>
+            </div>
+            <div class="carousel-item">
+                <div id="myBarChart"></div>
+                <!--<h4>Column</h4>-->
+                <p id="piechart"></p>
+            </div>
+            
+    </div>    
     </table>
+    
     <div id="individual" class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 bg-secondary card-body">
         <h2 class="individualpoint text-warning" id="individualpoint">Individual Article Analytics</h2>
     </div>

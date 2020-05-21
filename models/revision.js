@@ -63,6 +63,7 @@ RevisionSchema.statics.findLowestRevid = function(inputNumber,callback){
 RevisionSchema.statics.findLargestGroup2 = function(callback){
 	
 	return this.aggregate([
+		{$match:{$or: [{type:"admin"},{type:"reg"}]}},
 		{$group:{_id:{title:"$title",user:"$user"}, num: {$sum:1}}},
 		{$group:{_id:"$_id.title", number: {$sum:1}}},
         {$sort:{number:-1}},
@@ -73,6 +74,7 @@ RevisionSchema.statics.findLargestGroup2 = function(callback){
 RevisionSchema.statics.findSmallestGroup2 = function(callback){
 	
 	return this.aggregate([
+		{$match:{$or: [{type:"admin"},{type:"reg"}]}},
 		{$group:{_id:{title:"$title",user:"$user"}, num: {$sum:1}}},
 		{$group:{_id:"$_id.title", number: {$sum:1}}},
 		{$sort:{number:1}},
@@ -83,6 +85,7 @@ RevisionSchema.statics.findSmallestGroup2 = function(callback){
 RevisionSchema.statics.findLargestGroup = function(inputNumber,callback){
 	
 	return this.aggregate([
+		{$match:{$or: [{type:"admin"},{type:"reg"}]}},
 		{$group:{_id:{title:"$title",user:"$user"}, num: {$sum:1}}},
 		{$group:{_id:"$_id.title", number: {$sum:1}}},
         {$sort:{number:-1}},
@@ -93,27 +96,44 @@ RevisionSchema.statics.findLargestGroup = function(inputNumber,callback){
 RevisionSchema.statics.findSmallestGroup = function(inputNumber,callback){
 	
 	return this.aggregate([
+		{$match:{$or: [{type:"admin"},{type:"reg"}]}},
 		{$group:{_id:{title:"$title",user:"$user"}, num: {$sum:1}}},
 		{$group:{_id:"$_id.title", number: {$sum:1}}},
-		{$sort:{number:1}},
-		{$limit:parseInt(inputNumber)}
-	]).exec(callback)
+        {$sort:{number:1}},
+        {$limit:parseInt(inputNumber)}
+		]).exec(callback)
 }
 
 RevisionSchema.statics.findLongestHis = function(inputNumber,callback){
 	
 	return this.aggregate([
-		{$sort:{timestamp:-1}},
-		{$limit:parseInt(inputNumber)}
-	]).exec(callback)
+
+        {$group : {
+            _id:{title:"$title"},
+            maxValue : {$max : "$timestamp"}, 
+            minValue : {$min : "$timestamp"},
+ 
+        }},
+        {$project:{dateDifference:{$round:[{$divide:[{ $subtract: [ "$maxValue", "$minValue" ]},86400000]},0]}}},
+        {$sort:{dateDifference:-1}},
+        {$limit:parseInt(inputNumber)}
+        ]).exec(callback)
 }
 
 RevisionSchema.statics.findShortestHis = function(inputNumber,callback){
 	
 	return this.aggregate([
-		{$sort:{timestamp:1}},
-		{$limit:parseInt(inputNumber)}
-	]).exec(callback)
+
+        {$group : {
+            _id:{title:"$title"},
+            maxValue : {$max : "$timestamp"}, 
+            minValue : {$min : "$timestamp"},
+ 
+        }},
+        {$project:{dateDifference:{$round:[{$divide:[{ $subtract: [ "$maxValue", "$minValue" ]},86400000]},0]}}},
+        {$sort:{dateDifference:1}},
+        {$limit:parseInt(inputNumber)}
+        ]).exec(callback)
 }
 
 var Revision = mongoose.model('Revision', RevisionSchema, 'revisions')

@@ -1,3 +1,21 @@
+var barchart = ([
+    ['Year', 'Anonymous','Administrator', 'Bot','Regular user'],
+    ['2001',1,1,1,1], ['2002',1,1,1,1], ['2003',1,1,1,1], ['2004',1,1,1,1], ['2005',1,1,1,1], 
+    ['2006',1,1,1,1], ['2007',1,1,1,1], ['2008',1,1,1,1], ['2009',1,1,1,1], ['2010',1,1,1,1],
+    ['2011',1,1,1,1], ['2012',1,1,1,1], ['2013',1,1,1,1], ['2014',1,1,1,1], ['2015',1,1,1,1], 
+    ['2016',1,1,1,1], ['2017',1,1,1,1], ['2018',1,1,1,1], ['2019',1,1,1,1], ['2020',1,1,1,1]
+])
+
+function drawbarChart(){
+
+
+    var graphData = google.visualization.arrayToDataTable(barchart);
+    var chart = new google.visualization.ColumnChart($("#columnOverall")[0]);
+    chart.draw(graphData, columnoptions);
+}
+
+
+
 $(document).ready(function(){
 	$.get('/spa/getHighestRevid2', null, function (data) {
         for (var i = 0; i < 2; i++) {
@@ -30,6 +48,16 @@ $(document).ready(function(){
         }
     });
     
+    $.get('/spa/getBar', null, function (data) {
+
+        for (var i = 0; i < data.length; i++) {
+            $("#getShortestHis").append("Title: " + data[i].title + ", ")
+            $("#getShortestHis").append("Age: " + data[i].timestamp + "<br>")
+
+        }
+    });
+    
+   
     
 	$("#getNumber").click(function (e) {
         $("#getHighestRevid3").empty()
@@ -40,7 +68,8 @@ $(document).ready(function(){
         $("#getSmallestGroup").empty()
         $("#getLargestGroup2").empty()
         $("#getSmallestGroup2").empty()
-
+        $("#getLongestHis").empty()
+        $("#getShortestHis").empty()
 
         var parameters = {inputNumber: $('#inputNumber').val()};
         
@@ -80,19 +109,24 @@ $(document).ready(function(){
         $.get('/spa/getLongestHis', parameters, function (data) {
 
             for (var i = 0; i < data.length; i++) {
-                $("#getLongestHis").append("Title: " + data[i].title + ", ")
-                $("#getLongestHis").append("Age: " + data[i].number + "<br>")
+                $("#getLongestHis").append("Title: " + data[i]._id.title + ", ")
+                $("#getLongestHis").append("Age: " + data[i].dateDifference + " days<br>")
             }
         });
         $.get('/spa/getShortestHis', parameters, function (data) {
 
             for (var i = 0; i < data.length; i++) {
-                $("#getShortestHis").append("Title: " + data[i].title + ", ")
-                $("#getShortestHis").append("Age: " + data[i].number + "<br>")
+                $("#getShortestHis").append("Title: " + data[i]._id.title + ", ")
+                $("#getShortestHis").append("Age: " + data[i].dateDifference + " days<br>")
 
             }
         });
         
     });
+	
+	
+	
+	
+	
   
 });
