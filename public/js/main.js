@@ -29,6 +29,8 @@ $(document).ready(function(){
 
         }
     });
+    
+    
 	$("#getNumber").click(function (e) {
         $("#getHighestRevid3").empty()
         $("#getLowestRevid3").empty()
@@ -38,7 +40,6 @@ $(document).ready(function(){
         $("#getSmallestGroup").empty()
         $("#getLargestGroup2").empty()
         $("#getSmallestGroup2").empty()
-
 
 
         var parameters = {inputNumber: $('#inputNumber').val()};
@@ -73,6 +74,21 @@ $(document).ready(function(){
             for (var i = 0; i < data.length; i++) {
                 $("#getSmallestGroup").append("Title: " + data[i]._id + ", ")
                 $("#getSmallestGroup").append("Number Of registered users: " + data[i].number + "<br>")
+
+            }
+        });
+        $.get('/spa/getLongestHis', parameters, function (data) {
+
+            for (var i = 0; i < data.length; i++) {
+                $("#getLongestHis").append("Title: " + data[i].title + ", ")
+                $("#getLongestHis").append("Age: " + data[i].number + "<br>")
+            }
+        });
+        $.get('/spa/getShortestHis', parameters, function (data) {
+
+            for (var i = 0; i < data.length; i++) {
+                $("#getShortestHis").append("Title: " + data[i].title + ", ")
+                $("#getShortestHis").append("Age: " + data[i].number + "<br>")
 
             }
         });

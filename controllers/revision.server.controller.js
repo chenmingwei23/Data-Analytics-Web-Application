@@ -78,9 +78,23 @@ module.exports.getSmallestGroup=function(req,res){
     })
 }
 
+module.exports.getLongestHis=function(req,res){
+    inputNumber = req.query.inputNumber;
+	console.log("number is :", inputNumber);
+    Revision.findLongestHis(inputNumber,function(err,result){
+    		console.log("result is :", result);
+            res.json(result);
+    })
+}
 
-
-
+module.exports.getShortestHis=function(req,res){
+    inputNumber = req.query.inputNumber;
+	console.log("number is :", inputNumber);
+    Revision.findShortestHis(inputNumber,function(err,result){
+    		console.log("result is :", result);
+            res.json(result);
+    })
+}
 
 
 module.exports.getIndividualTitle=function(req,res){

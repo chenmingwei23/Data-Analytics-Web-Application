@@ -16,6 +16,10 @@ router.get('/getSmallestGroup2', controller.getSmallestGroup2)
 router.get('/getLargestGroup', controller.getLargestGroup)
 router.get('/getSmallestGroup', controller.getSmallestGroup)
 
+router.get('/getLongestHis', controller.getLongestHis)
+router.get('/getShortestHis', controller.getShortestHis)
+
+
 
 
 //router.get('/getHighestRevision2', controller.getHighestRevision2)

@@ -100,5 +100,21 @@ RevisionSchema.statics.findSmallestGroup = function(inputNumber,callback){
 	]).exec(callback)
 }
 
+RevisionSchema.statics.findLongestHis = function(inputNumber,callback){
+	
+	return this.aggregate([
+		{$sort:{timestamp:-1}},
+		{$limit:parseInt(inputNumber)}
+	]).exec(callback)
+}
+
+RevisionSchema.statics.findShortestHis = function(inputNumber,callback){
+	
+	return this.aggregate([
+		{$sort:{timestamp:1}},
+		{$limit:parseInt(inputNumber)}
+	]).exec(callback)
+}
+
 var Revision = mongoose.model('Revision', RevisionSchema, 'revisions')
 module.exports = Revision;
