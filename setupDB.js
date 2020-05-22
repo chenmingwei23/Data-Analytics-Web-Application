@@ -22,34 +22,30 @@ var revSchema = new mongoose.Schema(
 			})
 
 var revision=require("./models/revision")
-var bot = fs.readFileSync('bot.csv').toString();
+var bot = fs.readFileSync('bots.txt').toString();
 var bots = bot.split("\n");
-var admin = fs.readFileSync('admin.csv').toString();
+var admin = fs.readFileSync('administrators.txt').toString();
 var admins = admin.split("\n");
+
+//console.log(bots);
 
 
 function isBot(doc) {
-    var count = 0;
     for(var i = 0; i< bots.length;i++){
-        if(bots[i] == doc.user)
-            count++;
+    	
+        if(doc.user == bots[i]){
+            return true;
+    	}
     }
-    if(count>0)
-        return true;
-    else
-        return false;
+    return false;
 }	
 
 function isAdmin(doc) {
-    var count = 0;
     for(var i = 0; i< admins.length;i++){
-        if(admins[i]==(doc.user))
-            count++;
+        if(doc.user == admins[i])
+            return true;
     }
-    if(count>0)
-        return true;
-    else
-        return false;
+    return false;
 }
 
 function isAnon(doc) {
@@ -58,17 +54,7 @@ function isAnon(doc) {
     else
         return false;
 }
-var step =1;
 
-revision.find({}).skip(0).limit(56947*2).exec(function(err,result){
-	console.log("Changing date to ISODate");
-	result.forEach(function(doc){
-		console.log("Changing date to ISODate");
-		doc.timestamp = new Date(doc.timestamp);
-		db.revisions.save(doc)
-
-	});
-});
 
 
 revision.find({}).skip(0).limit(56947*2).exec(function (err,result) {
@@ -79,9 +65,9 @@ revision.find({}).skip(0).limit(56947*2).exec(function (err,result) {
     
     
     result.forEach(function(doc){
+    	//console.log(doc);
         if(isAdmin(doc)){
         	doc.set({type: 'admin' });
-
         }else if(isBot(doc)){
         	doc.set({type: 'bot' });
         }else if (isAnon(doc)) {

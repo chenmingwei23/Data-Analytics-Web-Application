@@ -96,13 +96,64 @@ module.exports.getShortestHis=function(req,res){
     })
 }
 
-module.exports.getBar=function(req,res){
-    inputTitle = req.query.inputTitle;
-    Revision.findShortestHis(inputNumber,function(err,result){
-		console.log("result is :", result);
+module.exports.getLongestHis2=function(req,res){
+    Revision.findLongestHis2(function(err,result){
+            res.json(result);
+    })
+}
+
+module.exports.getShortestHis2=function(req,res){
+    Revision.findShortestHis2(function(err,result){
+            res.json(result);
+    })
+}
+
+
+
+module.exports.getAdmin=function(req,res){
+    Revision.findAdmins(function(err,result){
         res.json(result);
-})
-    
+    })
+}
+module.exports.getBot=function(req,res){
+    Revision.findBots(function(err,result){
+        res.json(result);
+    })
+}
+
+module.exports.getReg=function(req,res){
+    Revision.findRegs(function(err,result){
+        res.json(result);
+    })
+}
+
+module.exports.getAnon=function(req,res){
+    Revision.findAnons(function(err,result){
+        res.json(result);
+    })
+}
+
+module.exports.getTotalAdmin=function(req,res){
+    Revision.findTotalAdmins(function(err,result){
+        res.json(result);
+    })
+}
+module.exports.getTotalBot=function(req,res){
+    Revision.findTotalBots(function(err,result){
+        res.json(result);
+    })
+}
+
+module.exports.getTotalReg=function(req,res){
+    Revision.findTotalRegs(function(err,result){
+        res.json(result);
+    })
+}
+
+module.exports.getTotalAnon=function(req,res){
+    Revision.findTotalAnons(function(err,result){
+        res.json(result);
+    })
 }
 
 module.exports.getIndividualTitle=function(req,res){

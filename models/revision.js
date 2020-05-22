@@ -16,6 +16,13 @@ var RevisionSchema = new mongoose.Schema(
 		 	versionKey: false
 		})
 
+RevisionSchema.statics.setup = function(callback){
+	return this.find().forEach(function(doc){
+		doc.timestamp = new ISODate(doc.timestamp);
+		db.revisions.save(doc)
+		}).exec(callback)
+}
+
 RevisionSchema.statics.findHighestRevision2 = function(callback){
 
     return this.aggregate([
@@ -134,6 +141,102 @@ RevisionSchema.statics.findShortestHis = function(inputNumber,callback){
         {$sort:{dateDifference:1}},
         {$limit:parseInt(inputNumber)}
         ]).exec(callback)
+}
+
+RevisionSchema.statics.findLongestHis2 = function(callback){
+	
+	return this.aggregate([
+
+        {$group : {
+            _id:{title:"$title"},
+            maxValue : {$max : "$timestamp"}, 
+            minValue : {$min : "$timestamp"},
+ 
+        }},
+        {$project:{dateDifference:{$round:[{$divide:[{ $subtract: [ "$maxValue", "$minValue" ]},86400000]},0]}}},
+        {$sort:{dateDifference:-1}},
+        {$limit:2}
+        ]).exec(callback)
+}
+
+RevisionSchema.statics.findShortestHis2 = function(callback){
+	
+	return this.aggregate([
+
+        {$group : {
+            _id:{title:"$title"},
+            maxValue : {$max : "$timestamp"}, 
+            minValue : {$min : "$timestamp"},
+ 
+        }},
+        {$project:{dateDifference:{$round:[{$divide:[{ $subtract: [ "$maxValue", "$minValue" ]},86400000]},0]}}},
+        {$sort:{dateDifference:1}},
+        {$limit:2}
+        ]).exec(callback)
+}
+
+RevisionSchema.statics.findAdmins = function(callback){
+	return this.aggregate([
+		{$match:{type:"admin"}},
+		{$match:{timestamp:{$exists:true}}},
+		{$group: {_id: { $substr: ["$timestamp", 0, 4 ] }, number: {$sum: 1}}},
+		{$sort: {_id: 1}}
+	]).exec(callback)
+}
+
+RevisionSchema.statics.findBots = function(callback){
+	return this.aggregate([
+		{$match:{type:"bot"}},
+		{$match:{timestamp:{$exists:true}}},
+		{$group: {_id: { $substr: ["$timestamp", 0, 4 ] }, number: {$sum: 1}}},
+		{$sort: {_id: 1}}
+	]).exec(callback)
+}
+
+RevisionSchema.statics.findRegs = function(callback){
+	return this.aggregate([
+		{$match:{type:"reg"}},
+		{$match:{timestamp:{$exists:true}}},
+		{$group: {_id: { $substr: ["$timestamp", 0, 4 ] }, number: {$sum: 1}}},
+		{$sort: {_id: 1}}
+	]).exec(callback)
+}
+
+RevisionSchema.statics.findAnons = function(callback){
+	return this.aggregate([
+		{$match:{type:"anon"}},
+		{$match:{timestamp:{$exists:true}}},
+		{$group: {_id: { $substr: ["$timestamp", 0, 4 ] }, number: {$sum: 1}}},
+		{$sort: {_id: 1}}
+	]).exec(callback)
+}
+
+RevisionSchema.statics.findTotalAnons = function(callback){
+	return this.aggregate([
+		{$match:{anon:""}},
+		{ $group: { _id: "anon user", count: { $sum: 1 } } }
+	]).exec(callback)
+}
+
+RevisionSchema.statics.findTotalAdmins = function(callback){
+	return this.aggregate([
+		{$match:{type:"admin"}},
+		{ $group: { _id: "admin user", count: { $sum: 1 } } }
+	]).exec(callback)
+}
+
+RevisionSchema.statics.findTotalBots = function(callback){
+	return this.aggregate([
+		{$match:{type:"bot"}},
+		{ $group: { _id: "bot user", count: { $sum: 1 } } }
+	]).exec(callback)
+}
+
+RevisionSchema.statics.findTotalRegs = function(callback){
+	return this.aggregate([
+		{$match:{type:"reg"}},
+		{ $group: { _id: "reg user", count: { $sum: 1 } } }
+	]).exec(callback)
 }
 
 var Revision = mongoose.model('Revision', RevisionSchema, 'revisions')

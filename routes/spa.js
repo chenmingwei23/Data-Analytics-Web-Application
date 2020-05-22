@@ -19,7 +19,19 @@ router.get('/getSmallestGroup', controller.getSmallestGroup)
 router.get('/getLongestHis', controller.getLongestHis)
 router.get('/getShortestHis', controller.getShortestHis)
 
-router.get('/getBar', controller.getBar)
+router.get('/getLongestHis2', controller.getLongestHis2)
+router.get('/getShortestHis2', controller.getShortestHis2)
+
+
+router.get('/getAdminsEachYear', controller.getAdmin)
+router.get('/getAnonsEachYear', controller.getAnon)
+router.get('/getBotsEachYear', controller.getBot)
+router.get('/getRegsEachYear', controller.getReg)
+
+router.get('/getTotalAdmin', controller.getTotalAdmin)
+router.get('/getTotalAnon', controller.getTotalAnon)
+router.get('/getTotalBot', controller.getTotalBot)
+router.get('/getTotalReg', controller.getTotalReg)
 
 
 
