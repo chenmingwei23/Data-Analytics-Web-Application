@@ -25,7 +25,7 @@ module.exports.getLowestRevision2=function(req,res){
 
 module.exports.getHighestRevid=function(req,res){
     inputNumber = req.query.inputNumber;
-	console.log("number is :", inputNumber);
+	//console.log("number is :", inputNumber);
     Revision.findHighestRevid(inputNumber,function(err,result){
     		//console.log("result is :", result);
             res.json(result);
@@ -34,7 +34,7 @@ module.exports.getHighestRevid=function(req,res){
 
 module.exports.getLowestRevid=function(req,res){
     inputNumber = req.query.inputNumber;
-	console.log("number is :", inputNumber);
+	//console.log("number is :", inputNumber);
     Revision.findLowestRevid(inputNumber,function(err,result){
     		//console.log("result is :", result);
             res.json(result);
@@ -43,9 +43,9 @@ module.exports.getLowestRevid=function(req,res){
 
 module.exports.getLargestGroup2=function(req,res){
     inputNumber = req.query.inputNumber;
-	console.log("number is :", inputNumber);
+	//console.log("number is :", inputNumber);
     Revision.findLargestGroup2(function(err,result){
-    		console.log("result is :", result);
+    		//console.log("result is :", result);
             res.json(result);
     })
 }
@@ -53,18 +53,18 @@ module.exports.getLargestGroup2=function(req,res){
 
 module.exports.getSmallestGroup2=function(req,res){
     inputNumber = req.query.inputNumber;
-	console.log("number is :", inputNumber);
+	//console.log("number is :", inputNumber);
     Revision.findSmallestGroup2(function(err,result){
-    		console.log("result is :", result);
+    		//console.log("result is :", result);
             res.json(result);
     })
 }
 
 module.exports.getLargestGroup=function(req,res){
     inputNumber = req.query.inputNumber;
-	console.log("number is :", inputNumber);
+	//console.log("number is :", inputNumber);
     Revision.findLargestGroup(inputNumber,function(err,result){
-    		console.log("result is :", result);
+    		//console.log("result is :", result);
             res.json(result);
     })
 }
@@ -73,25 +73,25 @@ module.exports.getSmallestGroup=function(req,res){
     inputNumber = req.query.inputNumber;
 	console.log("number is :", inputNumber);
     Revision.findSmallestGroup(inputNumber,function(err,result){
-    		console.log("result is :", result);
+    		//console.log("result is :", result);
             res.json(result);
     })
 }
 
 module.exports.getLongestHis=function(req,res){
     inputNumber = req.query.inputNumber;
-	console.log("number is :", inputNumber);
+	//console.log("number is :", inputNumber);
     Revision.findLongestHis(inputNumber,function(err,result){
-    		console.log("result is :", result);
+    		//console.log("result is :", result);
             res.json(result);
     })
 }
 
 module.exports.getShortestHis=function(req,res){
     inputNumber = req.query.inputNumber;
-	console.log("number is :", inputNumber);
+	//console.log("number is :", inputNumber);
     Revision.findShortestHis(inputNumber,function(err,result){
-    		console.log("result is :", result);
+    		//console.log("result is :", result);
             res.json(result);
     })
 }
@@ -156,14 +156,17 @@ module.exports.getTotalAnon=function(req,res){
     })
 }
 
-module.exports.getIndividualTitle=function(req,res){
-    inputTitle = req.query.inputTitle;
-    Revision.findIndividualTitle(inputTitle, function(err,revision){
-        if (err){
-            console.log("Cannot find " + inputTitle + ",s latest revision!")
-        }
-        else{
-            res.json(revision);
-        }
+module.exports.getRevisionNames=function(req,res){
+    Revision.findRevisionNames(function(err,result){
+        res.json(result);
     })
+}
+
+module.exports.getIndividualTitle=function(req,res){
+    //console.log(req.query);
+    revisionName = req.query.revisionName;
+	Revision.findIndividualTitle(revisionName,function(err,result){
+        res.json(result);
+    })
+    
 }

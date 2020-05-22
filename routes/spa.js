@@ -33,8 +33,9 @@ router.get('/getTotalAnon', controller.getTotalAnon)
 router.get('/getTotalBot', controller.getTotalBot)
 router.get('/getTotalReg', controller.getTotalReg)
 
+router.get('/getRevisionNames', controller.getRevisionNames)
 
 
-//router.get('/getHighestRevision2', controller.getHighestRevision2)
+router.get('/getIndividualTitle', controller.getIndividualTitle)
 
 module.exports = router;

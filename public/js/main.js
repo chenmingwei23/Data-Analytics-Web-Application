@@ -1,5 +1,6 @@
 google.charts.load('current', {packages: ['corechart']});
 
+
 var barchart = ([
     ['Year', 'Anonymous','Administrator', 'Bot','Regular user'],
     ['2001',1,1,1,1], ['2002',1,1,1,1], ['2003',1,1,1,1], ['2004',1,1,1,1], ['2005',1,1,1,1], 
@@ -38,6 +39,53 @@ function drawPie() {
     var graphData = google.visualization.arrayToDataTable(piedata);
     var chart = new google.visualization.PieChart($("#pieChart")[0]);
     chart.draw(graphData, pieChartOptions);
+}
+
+function requestFromWiki(title,time) {
+	BASE_URL = "https://en.wikipedia.org/w/api.php"
+
+	var wikiEndpoint = "https://en.wikipedia.org/w/api.php";
+	var parameters = [
+	    "titles=",
+	    "rvstart=",
+	    "rvdir=newer",
+	    "action=query",
+	    "prop=revisions",
+	    "rvlimit=500",
+	    "rvprop=ids|flags|user|userid|timestamp|size|sha1|parsedcomment",
+	    "formatversion=2",
+	    "format=json"
+	]
+	url = wikiEndpoint + "?" + parameters.join("&");
+	var options = {
+	    url: url,
+	    method: 'GET',
+	    headers: {
+	        'Accept': 'application/json',
+	        'Accept-Charset': 'utf-8'
+		}
+	};
+
+	request(options, function (err, res, data){
+	    if (err) {
+	        console.log('Error:', err);
+	    } else if (res.statusCode !== 200) {
+	        console.log('Error status code:', res.statusCode);
+	    } else {
+	        console.log('Status:', res.statusCode);
+	        var json = JSON.parse(data);
+	        var pages = json.query.pages;
+	        console.log("pages:\n" + JSON.stringify(pages));
+	        var revisions = pages[Object.keys(pages)[0]].revisions;
+	        console.log("There are " + revisions.length + " revisions.");
+	        var users=[];
+	        for (revid in revisions){
+	            users.push(revisions[revid].user);
+	        }
+	        uniqueUsers = new Set(users);
+	        console.log("The revisions are made by " + uniqueUsers.size + " unique users");
+	    }
+	});
 }
 
 
@@ -165,7 +213,22 @@ $(document).ready(function(){
         });
     });
 
+    $.get('/spa/getRevisionNames', null, function (data) {
+        for (var i = 0; i < data.length; i++) {
+            $("#getRevisionNames").append("<option value='"+data[i]._id.title+"'>"+data[i]._id.title+" "+data[i].number+" of revisions</option>");
+        }
+    });
+    
+    $("#getRevision").click(function (e) {
+    	
+        var parameters = {revisionName: $('#getRevisionNames').val()};
 
+        console.log(parameters);
+        
+    	$.getJSON('/spa/getIndividualTitle', parameters, function (data) {
+    		console.log(data);
+        });
+    });
     
 	$("#getNumber").click(function (e) {
         $("#getHighestRevid3").empty()

@@ -239,5 +239,17 @@ RevisionSchema.statics.findTotalRegs = function(callback){
 	]).exec(callback)
 }
 
+RevisionSchema.statics.findRevisionNames = function(callback){
+	return this.aggregate([   
+        {$group : { _id:{title:"$title"},number:{$sum:1}}
+        }]).exec(callback)
+}
+
+RevisionSchema.statics.findIndividualTitle = function(input, callback){
+	console.log("???");
+	return this.aggregate([   
+		{$match: {title:"Canada"}}
+        ]).exec(callback)
+}
 var Revision = mongoose.model('Revision', RevisionSchema, 'revisions')
 module.exports = Revision;
