@@ -116,7 +116,7 @@ $(document).ready(function(){
                     	var index = data[i]._id % 2000;
                     	barchart[index][4] = parseInt(data[i].number);
                     }
-            	    google.charts.setOnLoadCallback(drawBarChart);	
+            	    google.charts.setOnLoadCallback(drawBarChart);
 
                 });
             });
@@ -154,6 +154,12 @@ $(document).ready(function(){
                         piedata[4][1] = parseInt(data[i].count);
                     }
                     google.charts.setOnLoadCallback(drawPie);
+                    var total = piedata[1][1] + piedata[2][1] + piedata[3][1] + piedata[4][1];
+                    var a = (piedata[1][1]/total)*100;
+                    var b = (piedata[2][1]/total)*100;
+                    var c = (piedata[3][1]/total)*100;
+                    var d = (piedata[4][1]/total)*100;
+                    $("#pieDiscription").append("The graph shows the revision number distribution by user type, in which "+parseInt(total)+" number of users are taken into consideration for this analysis. From the pie chart, it is clear that the revisions were made mostly by regular users that cover for "+parseInt(d)+"%, followed by anonymous users with "+parseInt(a)+"%. The administrator users stands at "+parseInt(b)+"%, which is larger than  revisions made by bot users ("+parseInt(c+1)+"%).")
                 });
             });
         });
