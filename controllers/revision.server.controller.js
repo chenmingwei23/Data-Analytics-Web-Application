@@ -8,6 +8,62 @@ var number2;
 var number3;
 var number4;
 
+var request = require('request');
+function requestFromWiki(title,time, callback) {
+	var num = 0;
+	var wikiEndpoint = "https://en.wikipedia.org/w/api.php";
+	var result = {
+			num: 0,
+			timestamp: "",
+			name: title
+	};
+	
+	var parameters = [
+	    "titles=",
+	    "rvstart=",
+	    "rvdir=newer",
+	    "action=query",
+	    "prop=revisions",
+	    "rvlimit=500",
+	    "rvprop=ids|flags|user|userid|timestamp|size|sha1|parsedcomment",
+	    "formatversion=2",
+	    "format=json"
+	]
+	//console.log("Title is: "+title+" timestamp is:"+time);
+	parameters[0]+=title;
+	parameters[1]+=time;
+	url = wikiEndpoint + "?" + parameters.join("&");
+	var options = {
+	    url: url,
+	    method: 'GET',
+	    headers: {
+	        'Accept': 'application/json',
+	        'Accept-Charset': 'utf-8'
+		}
+	};
+	
+	request(options, function (err, res, data){
+	    if (err) {
+	        console.log('Error:', err);
+	    } else if (res.statusCode !== 200) {
+	        console.log('Error status code:', res.statusCode);
+	    } else {
+	        console.log('Status:', res.statusCode);
+	        var json = JSON.parse(data);
+	        console.log(json);
+	        var pages = json.query.pages;
+	        var revisions = pages[Object.keys(pages)[0]].revisions;	
+	        num = revisions.length;
+	        console.log("There are " + revisions.length + " revisions.");
+	        //console.log(revisions);
+	        result.num = revisions.length;
+	        result.timestamp = revisions[0].timestamp;
+	        return callback(result);
+	    }
+	});
+}
+
+
 module.exports.getHighestRevision2=function(req,res){
     
 	Revision.findHighestRevision2(function(err,result){
@@ -163,10 +219,81 @@ module.exports.getRevisionNames=function(req,res){
 }
 
 module.exports.getIndividualTitle=function(req,res){
-    //console.log(req.query);
     revisionName = req.query.revisionName;
-	Revision.findIndividualTitle(revisionName,function(err,result){
+	Revision.findIndividualTitleLatestUpdate(revisionName,function(err,result){
+        requestFromWiki(revisionName, result[0].timestamp.toISOString(), function(result1) {
+        	//console.log("Number of revision downloaded is "+result1);
+        	res.json(result1);
+        });
+    }) 
+}
+
+module.exports.getIndividualRevisionNumber=function(req,res){
+    revisionName = req.query.revisionName;
+    console.log("revision name is: "+revisionName);
+	Revision.findIndividualRevisionNumber(revisionName,function(err,result){
+		res.json(result);
+    }) 
+}
+
+module.exports.getIndividualRevisionTop=function(req,res){
+    revisionName = req.query.revisionName;
+    console.log("revision name is: "+revisionName);
+	Revision.findIndividualRevisionTop(revisionName,function(err,result){
+		res.json(result);
+    }) 
+}
+
+module.exports.getIndividualAdmin=function(req,res){
+	revisionName = req.query.revisionName;
+    Revision.findIndividualAdmins(revisionName,function(err,result){
         res.json(result);
     })
-    
+}
+module.exports.getIndividualBot=function(req,res){
+	revisionName = req.query.revisionName;
+    Revision.findIndividualBots(revisionName,function(err,result){
+        res.json(result);
+    })
+}
+
+module.exports.getIndividualReg=function(req,res){
+	revisionName = req.query.revisionName;
+    Revision.findIndividualRegs(revisionName,function(err,result){
+        res.json(result);
+    })
+}
+
+module.exports.getIndividualAnon=function(req,res){
+	revisionName = req.query.revisionName;
+    Revision.findIndividualAnons(revisionName,function(err,result){
+        res.json(result);
+    })
+}
+
+module.exports.getIndividualTotalAdmin=function(req,res){
+	revisionName = req.query.revisionName;
+    Revision.findIndividualTotalAdmins(revisionName,function(err,result){
+        res.json(result);
+    })
+}
+module.exports.getIndividualTotalBot=function(req,res){
+	revisionName = req.query.revisionName;
+    Revision.findIndividualTotalBots(revisionName,function(err,result){
+        res.json(result);
+    })
+}
+
+module.exports.getIndividualTotalReg=function(req,res){
+	revisionName = req.query.revisionName;
+    Revision.findIndividualTotalRegs(revisionName,function(err,result){
+        res.json(result);
+    })
+}
+
+module.exports.getIndividualTotalAnon=function(req,res){
+	revisionName = req.query.revisionName;
+    Revision.findIndividualTotalAnons(revisionName,function(err,result){
+        res.json(result);
+    })
 }

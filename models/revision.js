@@ -251,5 +251,103 @@ RevisionSchema.statics.findIndividualTitle = function(input, callback){
 		{$match: {title:"Canada"}}
         ]).exec(callback)
 }
+
+RevisionSchema.statics.findIndividualTitleLatestUpdate = function(input, callback){
+	return this.aggregate([   
+		{$match: {title:input}},
+		{$sort:{timestamp:-1}},
+		{$limit:1}
+        ]).exec(callback)
+}
+
+RevisionSchema.statics.findIndividualRevisionNumber = function(input, callback){
+	return this.aggregate([
+    	{$match:{title:input}},
+    	{$group:{_id:"$title",numofrevisions:{$sum:1}}}
+    ]).exec(callback)
+}
+
+RevisionSchema.statics.findIndividualRevisionTop = function(input, callback){
+	return this.aggregate([
+    	{$match:{title:input}},
+    	{$match:{type:"reg"}},
+    	{$group:{_id:{user:"$user"}, num: {$sum:1}}},
+		{$sort:{num:-1}},
+    	{$limit:5}
+    ]).exec(callback)
+}
+
+RevisionSchema.statics.findIndividualAdmins = function(input,callback){
+	return this.aggregate([
+		{$match:{title:input}},
+		{$match:{type:"admin"}},
+		{$match:{timestamp:{$exists:true}}},
+		{$group: {_id: { $substr: ["$timestamp", 0, 4 ] }, number: {$sum: 1}}},
+		{$sort: {_id: 1}}
+	]).exec(callback)
+}
+
+RevisionSchema.statics.findIndividualBots = function(input,callback){
+	return this.aggregate([
+		{$match:{title:input}},
+		{$match:{type:"bot"}},
+		{$match:{timestamp:{$exists:true}}},
+		{$group: {_id: { $substr: ["$timestamp", 0, 4 ] }, number: {$sum: 1}}},
+		{$sort: {_id: 1}}
+	]).exec(callback)
+}
+
+RevisionSchema.statics.findIndividualRegs = function(input,callback){
+	return this.aggregate([
+		{$match:{title:input}},
+		{$match:{type:"reg"}},
+		{$match:{timestamp:{$exists:true}}},
+		{$group: {_id: { $substr: ["$timestamp", 0, 4 ] }, number: {$sum: 1}}},
+		{$sort: {_id: 1}}
+	]).exec(callback)
+}
+
+RevisionSchema.statics.findIndividualAnons = function(input,callback){
+	return this.aggregate([
+		{$match:{title:input}},
+		{$match:{type:"anon"}},
+		{$match:{timestamp:{$exists:true}}},
+		{$group: {_id: { $substr: ["$timestamp", 0, 4 ] }, number: {$sum: 1}}},
+		{$sort: {_id: 1}}
+	]).exec(callback)
+}
+
+RevisionSchema.statics.findIndividualTotalAnons = function(input,callback){
+	return this.aggregate([
+		{$match:{title:input}},
+		{$match:{anon:""}},
+		{ $group: { _id: "anon user", count: { $sum: 1 } } }
+	]).exec(callback)
+}
+
+RevisionSchema.statics.findIndividualTotalAdmins = function(input,callback){
+	return this.aggregate([
+		{$match:{title:input}},
+		{$match:{type:"admin"}},
+		{ $group: { _id: "admin user", count: { $sum: 1 } } }
+	]).exec(callback)
+}
+
+RevisionSchema.statics.findIndividualTotalBots = function(input,callback){
+	return this.aggregate([
+		{$match:{title:input}},
+		{$match:{type:"bot"}},
+		{ $group: { _id: "bot user", count: { $sum: 1 } } }
+	]).exec(callback)
+}
+
+RevisionSchema.statics.findIndividualTotalRegs = function(input,callback){
+	return this.aggregate([
+		{$match:{title:input}},
+		{$match:{type:"reg"}},
+		{ $group: { _id: "reg user", count: { $sum: 1 } } }
+	]).exec(callback)
+}
+
 var Revision = mongoose.model('Revision', RevisionSchema, 'revisions')
 module.exports = Revision;

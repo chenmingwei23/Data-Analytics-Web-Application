@@ -9,7 +9,23 @@ var barchart = ([
     ['2016',1,1,1,1], ['2017',1,1,1,1], ['2018',1,1,1,1], ['2019',1,1,1,1], ['2020',1,1,1,1]
 ])
 
+var barchartIndividual = ([
+    ['Year', 'Anonymous','Administrator', 'Bot','Regular user'],
+    ['2001',1,1,1,1], ['2002',1,1,1,1], ['2003',1,1,1,1], ['2004',1,1,1,1], ['2005',1,1,1,1], 
+    ['2006',1,1,1,1], ['2007',1,1,1,1], ['2008',1,1,1,1], ['2009',1,1,1,1], ['2010',1,1,1,1],
+    ['2011',1,1,1,1], ['2012',1,1,1,1], ['2013',1,1,1,1], ['2014',1,1,1,1], ['2015',1,1,1,1], 
+    ['2016',1,1,1,1], ['2017',1,1,1,1], ['2018',1,1,1,1], ['2019',1,1,1,1], ['2020',1,1,1,1]
+])
+
 var piedata = ([
+        ['User Type', 'The number of users'],
+        ['Anonymous', 0],
+        ['Administrator', 0],
+        ['Bot', 0],
+        ['Regular user', 0]
+])
+
+var piedataIndividual = ([
         ['User Type', 'The number of users'],
         ['Anonymous', 0],
         ['Administrator', 0],
@@ -35,58 +51,24 @@ function drawBarChart(){
     chart.draw(graphData, barChartOtions);
 }
 
+function drawIndividualBarChart(){
+    var graphDataIndividual = google.visualization.arrayToDataTable(barchartIndividual);
+    var chartIndividual = new google.visualization.ColumnChart($("#barChartIndividual")[0]);
+    chartIndividual.draw(graphDataIndividual, barChartOtions);
+}
+
 function drawPie() {  
     var graphData = google.visualization.arrayToDataTable(piedata);
     var chart = new google.visualization.PieChart($("#pieChart")[0]);
     chart.draw(graphData, pieChartOptions);
 }
 
-function requestFromWiki(title,time) {
-	BASE_URL = "https://en.wikipedia.org/w/api.php"
-
-	var wikiEndpoint = "https://en.wikipedia.org/w/api.php";
-	var parameters = [
-	    "titles=",
-	    "rvstart=",
-	    "rvdir=newer",
-	    "action=query",
-	    "prop=revisions",
-	    "rvlimit=500",
-	    "rvprop=ids|flags|user|userid|timestamp|size|sha1|parsedcomment",
-	    "formatversion=2",
-	    "format=json"
-	]
-	url = wikiEndpoint + "?" + parameters.join("&");
-	var options = {
-	    url: url,
-	    method: 'GET',
-	    headers: {
-	        'Accept': 'application/json',
-	        'Accept-Charset': 'utf-8'
-		}
-	};
-
-	request(options, function (err, res, data){
-	    if (err) {
-	        console.log('Error:', err);
-	    } else if (res.statusCode !== 200) {
-	        console.log('Error status code:', res.statusCode);
-	    } else {
-	        console.log('Status:', res.statusCode);
-	        var json = JSON.parse(data);
-	        var pages = json.query.pages;
-	        console.log("pages:\n" + JSON.stringify(pages));
-	        var revisions = pages[Object.keys(pages)[0]].revisions;
-	        console.log("There are " + revisions.length + " revisions.");
-	        var users=[];
-	        for (revid in revisions){
-	            users.push(revisions[revid].user);
-	        }
-	        uniqueUsers = new Set(users);
-	        console.log("The revisions are made by " + uniqueUsers.size + " unique users");
-	    }
-	});
+function drawPieIndividual() {  
+    var graphDataIndividual = google.visualization.arrayToDataTable(piedataIndividual);
+    var chartIndividual = new google.visualization.PieChart($("#pieChartIndividual")[0]);
+    chartIndividual.draw(graphDataIndividual, pieChartOptions);
 }
+
 
 
 
@@ -220,14 +202,101 @@ $(document).ready(function(){
     });
     
     $("#getRevision").click(function (e) {
+    	 $("#updateRevision").empty();
+        $("#updateRevision").append("Updating latest version of this revision");
+    	$("#getRevisionNumber").empty();
+    	$("#getRevisionNumber2").empty();
+    	$("#getRevisionNumber1").empty();
+    	$("#individualTitle").empty();
+    	$("#getRevisionNumber").empty();
+    	$("#getTopUser").empty(); 
+    	$("#barChartIndividual").empty();
+    	$("#pieChartIndividual").empty();
     	
         var parameters = {revisionName: $('#getRevisionNames').val()};
+        $("#individualTitle").append(parameters.revisionName);
 
-        console.log(parameters);
         
     	$.getJSON('/spa/getIndividualTitle', parameters, function (data) {
     		console.log(data);
+    		var numRev = 0;
+            $("#getRevisionNumber1").append("Last edited time of "+data.name+" in the database is: "+data.timestamp+".");        
+            if(data.num == 0) {
+            	$("#getRevisionNumber2").append("There is no avaible new revisions online.");
+    		}else {
+    			numRev += data.num;
+                $("#getRevisionNumber2").append("Number of downloaded revision is: "+data.num+".");
+    		}
+            $("#updateRevision").empty();
+            $("#updateRevision").append("Downloaded successfully.");
+            
+            $.get('/spa/getIndividualRevisionNumber', parameters, function (data) {
+        		console.log(data);
+                for (var i = 0; i < data.length; i++) {
+                	numRev += data[i].numofrevisions;
+                    $("#getRevisionNumber").append("Number of revision is: "+numRev+".");
+                }
+            });
+            $.get('/spa/getIndividualRevisionTop', parameters, function (data) {
+        		console.log(data);
+                for (var i = 0; i < data.length; i++) {               	
+                    $("#getTopUser").append((i+1)+". Author is: "+data[i]._id.user+", ");
+                    $("#getTopUser").append("Number of revisions is: "+data[i].num+"<br>");
+                }
+            });
         });
+    	
+    	$.getJSON('/spa/getIndividualAnonsEachYear', parameters, function (data) {
+            for (var i = 0;i<data.length;i++) {
+            	var index = data[i]._id % 2000;
+            	barchartIndividual[index][1] = parseInt(data[i].number);
+            }
+            
+            $.getJSON('/spa/getIndividualAdminsEachYear', parameters, function (data) {
+            	for (var i = 0;i<data.length;i++) {
+                	var index = data[i]._id % 2000;
+                	barchartIndividual[index][2] = parseInt(data[i].number);
+                }
+            	
+            	$.getJSON('/spa/getIndividualBotsEachYear', parameters, function (data) {
+                	for (var i = 0;i<data.length;i++) {
+                    	var index = data[i]._id % 2000;
+                    	barchartIndividual[index][3] = parseInt(data[i].number);
+                    }
+                	
+                	$.getJSON('/spa/getIndividualRegsEachYear', parameters, function (data) {
+                    	for (var i = 0;i<data.length;i++) {
+                        	var index = data[i]._id % 2000;
+                        	barchartIndividual[index][4] = parseInt(data[i].number);
+                        }
+                	    google.charts.setOnLoadCallback(drawIndividualBarChart);
+                    });
+                });
+            });
+        });
+    	
+    	$.getJSON('/spa/getIndividualTotalAnon', parameters, function (data) {
+            for (var i = 0; i < data.length; i++) {
+                piedataIndividual[1][1] = parseInt(data[i].count);
+            }
+            $.getJSON('/spa/getIndividualTotalAdmin', parameters, function (data) {
+                for (var i = 0; i < data.length; i++) {
+                    piedataIndividual[2][1] = parseInt(data[i].count);
+                }
+                $.getJSON('/spa/getIndividualTotalBot', parameters, function (data) {
+                    for (var i = 0; i < data.length; i++) {
+                        piedataIndividual[3][1] = parseInt(data[i].count);
+                    }
+                    $.getJSON('/spa/getIndividualTotalReg', parameters, function (data) {
+                        for (var i = 0; i < data.length; i++) {
+                            piedataIndividual[4][1] = parseInt(data[i].count);
+                        }
+                        google.charts.setOnLoadCallback(drawPieIndividual);
+                    });
+                });
+            });
+        });
+    	
     });
     
 	$("#getNumber").click(function (e) {

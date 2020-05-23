@@ -34,7 +34,18 @@ router.get('/getTotalBot', controller.getTotalBot)
 router.get('/getTotalReg', controller.getTotalReg)
 
 router.get('/getRevisionNames', controller.getRevisionNames)
+router.get('/getIndividualRevisionNumber', controller.getIndividualRevisionNumber)
+router.get('/getIndividualRevisionTop', controller.getIndividualRevisionTop)
 
+router.get('/getIndividualAdminsEachYear', controller.getIndividualAdmin)
+router.get('/getIndividualAnonsEachYear', controller.getIndividualAnon)
+router.get('/getIndividualBotsEachYear', controller.getIndividualBot)
+router.get('/getIndividualRegsEachYear', controller.getIndividualReg)
+
+router.get('/getIndividualTotalAdmin', controller.getIndividualTotalAdmin)
+router.get('/getIndividualTotalAnon', controller.getIndividualTotalAnon)
+router.get('/getIndividualTotalBot', controller.getIndividualTotalBot)
+router.get('/getIndividualTotalReg', controller.getIndividualTotalReg)
 
 router.get('/getIndividualTitle', controller.getIndividualTitle)
 
