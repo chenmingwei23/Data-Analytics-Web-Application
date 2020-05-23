@@ -227,6 +227,8 @@ $(document).ready(function(){
     	$("#getTopUser").empty(); 
     	$("#barChartIndividual").empty();
     	$("#pieChartIndividual").empty();
+    	$("#barChartIndividualByUser").empty();
+    	$("#getUsers").empty();
     	
         var parameters = {revisionName: $('#getRevisionNames').val()};
         $("#individualTitle").append(parameters.revisionName);
