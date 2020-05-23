@@ -6,6 +6,8 @@ Query and compute various summary statistics at the server-side and present the 
 
 ## Getting Started
 
+- Link to google doc for report: https://docs.google.com/document/d/1ky9xi_2xBfHtDn0A5lXRqHjzOyD6P1PftcR8lY8Za8U/edit?usp=sharing
+
 ### Prerequisites
 
 - First cloning the directory into your local machine.
@@ -34,7 +36,7 @@ Extract the zip file and place all files within the main directory.
 
   - Open terminal and navigate to home directory   
   ```
-  'chmod  +x setup.sh' & 'setup.sh'
+  'chmod  +x setup.sh' & './setup.sh'
   ```
   
   - Using Eclipse run as node application
