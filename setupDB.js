@@ -65,11 +65,9 @@ revision.find({}).skip(0).limit(56947*2).exec(function (err,result) {
     
     
     result.forEach(function(doc){
-    	if (doc.type=="admin" || doc.type=="reg" || doc.type=="anon") {
-    		
-    	}
+
     	//console.log(doc);
-    	else if(isAdmin(doc)){
+    	if(isAdmin(doc)){
         	doc.set({type: 'admin' });
         }else if(isBot(doc)){
         	doc.set({type: 'bot' });

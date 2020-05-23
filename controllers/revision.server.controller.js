@@ -297,3 +297,11 @@ module.exports.getIndividualTotalAnon=function(req,res){
         res.json(result);
     })
 }
+
+module.exports.getIndividualByUser=function(req,res){
+	revisionName = req.query.revisionName;
+	userName = req.query.userName;
+    Revision.findIndividualByUser(revisionName,userName,function(err,result){
+        res.json(result);
+    })
+}

@@ -349,5 +349,16 @@ RevisionSchema.statics.findIndividualTotalRegs = function(input,callback){
 	]).exec(callback)
 }
 
+RevisionSchema.statics.findIndividualByUser = function(revisionName,userName,callback){
+	return this.aggregate([
+		{$match:{title:revisionName,user:userName}},
+		{$match:{timestamp:{$exists:true}}},
+		{$group: {_id: { $substr: ["$timestamp", 0, 4 ] }, number: {$sum: 1}}},
+		{$sort: {_id: 1}}
+	]).exec(callback)
+}
+
+
+
 var Revision = mongoose.model('Revision', RevisionSchema, 'revisions')
 module.exports = Revision;

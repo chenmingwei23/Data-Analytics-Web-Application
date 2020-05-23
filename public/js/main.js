@@ -1,6 +1,7 @@
 google.charts.load('current', {packages: ['corechart']});
 
-
+var getIndividualByUserFlag = 0;
+var oldGetIndividualByUserFlag = 0;
 var barchart = ([
     ['Year', 'Anonymous','Administrator', 'Bot','Regular user'],
     ['2001',1,1,1,1], ['2002',1,1,1,1], ['2003',1,1,1,1], ['2004',1,1,1,1], ['2005',1,1,1,1], 
@@ -15,6 +16,14 @@ var barchartIndividual = ([
     ['2006',1,1,1,1], ['2007',1,1,1,1], ['2008',1,1,1,1], ['2009',1,1,1,1], ['2010',1,1,1,1],
     ['2011',1,1,1,1], ['2012',1,1,1,1], ['2013',1,1,1,1], ['2014',1,1,1,1], ['2015',1,1,1,1], 
     ['2016',1,1,1,1], ['2017',1,1,1,1], ['2018',1,1,1,1], ['2019',1,1,1,1], ['2020',1,1,1,1]
+])
+
+var barchartIndividualByUser = ([
+    ['Year', 'Number of revisions'],
+    ['2001',1], ['2002',1], ['2003',1], ['2004',1], ['2005',1], 
+    ['2006',1], ['2007',1], ['2008',1], ['2009',1], ['2010',1],
+    ['2011',1], ['2012',1], ['2013',1], ['2014',1], ['2015',1], 
+    ['2016',1], ['2017',1], ['2018',1], ['2019',1], ['2020',1]
 ])
 
 var piedata = ([
@@ -55,6 +64,12 @@ function drawIndividualBarChart(){
     var graphDataIndividual = google.visualization.arrayToDataTable(barchartIndividual);
     var chartIndividual = new google.visualization.ColumnChart($("#barChartIndividual")[0]);
     chartIndividual.draw(graphDataIndividual, barChartOtions);
+}
+
+function drawIndividualByUserBarChart(){
+    var graphDataIndividualByUser = google.visualization.arrayToDataTable(barchartIndividualByUser);
+    var chartIndividualByUser = new google.visualization.ColumnChart($("#barChartIndividualByUser")[0]);
+    chartIndividualByUser.draw(graphDataIndividualByUser, barChartOtions);
 }
 
 function drawPie() {  
@@ -202,7 +217,7 @@ $(document).ready(function(){
     });
     
     $("#getRevision").click(function (e) {
-    	 $("#updateRevision").empty();
+    	$("#updateRevision").empty();
         $("#updateRevision").append("Updating latest version of this revision");
     	$("#getRevisionNumber").empty();
     	$("#getRevisionNumber2").empty();
@@ -242,6 +257,7 @@ $(document).ready(function(){
                 for (var i = 0; i < data.length; i++) {               	
                     $("#getTopUser").append((i+1)+". Author is: "+data[i]._id.user+", ");
                     $("#getTopUser").append("Number of revisions is: "+data[i].num+"<br>");
+                    $("#getUsers").append("<option value='"+data[i]._id.user+"'>"+data[i]._id.user);
                 }
             });
         });
@@ -296,6 +312,29 @@ $(document).ready(function(){
                 });
             });
         });
+    	
+		$("#getUserName").click(function (e) {
+			if (getIndividualByUserFlag > 0 ) {
+				
+				$("#barChartIndividualByUser").empty();
+			}
+			
+			var par = {userName: $("#getUsers").val(), revisionName: $("#getRevisionNames").val()};
+			
+			console.log(par.userName);
+			console.log(par.revisionName);
+			
+			$.getJSON('/spa/getIndividualByUser', par, function (data) {
+				console.log(data);
+	            for (var i = 0;i<data.length;i++) {
+	            	var index = data[i]._id % 2000;
+	            	barchartIndividualByUser[index][1] = parseInt(data[i].number);
+	            }
+	            oldGetIndividualByUserFlag = getIndividualByUserFlag;
+            	getIndividualByUserFlag += 1;          	
+        	    google.charts.setOnLoadCallback(drawIndividualByUserBarChart);
+	        });
+		});
     	
     });
     

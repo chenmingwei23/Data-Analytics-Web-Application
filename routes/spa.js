@@ -47,6 +47,9 @@ router.get('/getIndividualTotalAnon', controller.getIndividualTotalAnon)
 router.get('/getIndividualTotalBot', controller.getIndividualTotalBot)
 router.get('/getIndividualTotalReg', controller.getIndividualTotalReg)
 
+router.get('/getIndividualByUser', controller.getIndividualByUser)
+
+
 router.get('/getIndividualTitle', controller.getIndividualTitle)
 
 module.exports = router;
