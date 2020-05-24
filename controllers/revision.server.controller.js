@@ -305,3 +305,25 @@ module.exports.getIndividualByUser=function(req,res){
         res.json(result);
     })
 }
+
+module.exports.getTotalUser=function(req,res){
+    Revision.findTotalUser(function(err,result){
+        res.json(result);
+    })
+}
+
+module.exports.getUserRevisions=function(req,res){
+	console.log(res.query);
+	userName = req.query.userName;
+    Revision.findUserRevisions(userName, function(err,result){
+        res.json(result);
+    })
+}
+
+module.exports.getUserRevisionsTime=function(req,res){	
+	userName = req.query.userName;
+	revisionName = req.query.revisionName;
+    Revision.findUserRevisionsTime(userName,revisionName, function(err,result){
+        res.json(result);
+    })
+}

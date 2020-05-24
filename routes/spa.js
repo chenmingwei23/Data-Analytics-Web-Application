@@ -49,7 +49,13 @@ router.get('/getIndividualTotalReg', controller.getIndividualTotalReg)
 
 router.get('/getIndividualByUser', controller.getIndividualByUser)
 
-
 router.get('/getIndividualTitle', controller.getIndividualTitle)
+
+router.get('/getUserRevisions', controller.getUserRevisions)
+
+router.get('/getUserRevisionsTime', controller.getUserRevisionsTime)
+
+router.get('/getTotalUser', controller.getTotalUser)
+
 
 module.exports = router;

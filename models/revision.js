@@ -358,7 +358,28 @@ RevisionSchema.statics.findIndividualByUser = function(revisionName,userName,cal
 	]).exec(callback)
 }
 
+RevisionSchema.statics.findTotalUser = function(callback){
+	return this.aggregate([
+		{$group: { _id: "$user", count: { $sum: 1 } } },
+		{$sort:{count:-1}}
+	]).exec(callback)
+}
 
 
+RevisionSchema.statics.findUserRevisions = function(input,callback){
+	return this.aggregate([
+		{$match:{user:input}},
+		{$group:{_id:"$title", revisionCount:{$sum: 1}}},
+		{$project:{_id: 1, user: 1, revisionCount: 1}}
+		]).exec(callback)
+}
+
+RevisionSchema.statics.findUserRevisionsTime = function(userName, revisionName,callback){
+	return this.aggregate([
+		{$match:{title:revisionName, user:userName}},
+		{$project:{_id: 0, timestamp: 1}},
+		{$sort:{timestamp: 1}}
+		]).exec(callback)
+}
 var Revision = mongoose.model('Revision', RevisionSchema, 'revisions')
 module.exports = Revision;

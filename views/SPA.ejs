@@ -3,6 +3,8 @@
 <head>
     <title>Analytics Page</title>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript" src="/js/main.js"></script>
 
@@ -166,7 +168,41 @@
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 bg-secondary card-body">
         <h2 class=" authorpoint text-warning" id="authorpoint">Author Analytics</h2>
     </div>
-
+	<div class="ui-widget">
+  		<label for="gerUserName">Input author name: </label>
+  		<input id="gerUserName">
+ 		<input class="btn btn-outline-light bg-primary"type="submit" id="getAuthor" value="Submit">
+	</div>
+	<h2 id="userName"></h2>
+	<table class="table ">
+	     <tbody>
+	     <tr>
+	         <table class="table">
+	                 <tbody>
+		                 <tr>
+	                        <h5 id="userCreated"> </h5>
+	                     </tr>
+	                     <tr>
+		                    <select id="getUserRevision" ></select>
+	      					<input class="btn btn-outline-light bg-primary"type="submit"  id="getUserRevisionButton" value="Submit">
+	      				 </tr>
+	                 </tbody>
+	         </table> 
+	         <table class="table">
+	                 <tbody>
+		                 <tr>
+	                         <th><h4 >Revision information: </h4></th>
+	                     </tr>
+	                     <tr>
+	                     	<th><p id="getRevisionTime"></p></th>
+	                     </tr>
+	                 </tbody>
+	         </table>               
+	     </tr>
+	     </tbody>  
+	</table>
+	
+	
 </main>
 
 <footer class="pt-4 my-md-20  border-top text-center">
