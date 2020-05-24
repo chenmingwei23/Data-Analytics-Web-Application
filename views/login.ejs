@@ -1,29 +1,51 @@
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <title>Login</title>    
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <title>Sign In</title>
 </head>
+
 <body>
-<div class="text-center">
-<div class="pricing-header px-10 py-10 pt-md-5 pb-md-4 mx-auto text-center ">
-    <h1 class="display-4">Wikipdia Analytics</h1>
-</div>
-	<h1>Login</h1>
-	<form action="/login" method="POST">
-  <div>
-    <label>
-	    <input type="text" id="email" name="email" class="form-control" placeholder="Email" required >
-	</label>
+
+  <!-- Header -->
+  <div class="pricing-header px-10 py-10 pb-md-4 mx-auto">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="/">
+        <b> Wikipedia Analytics </b>
+      </a>
+    </nav>
   </div>
-  <div>
-    <label>
-	    <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
-	</label>
+
+  <!-- Sign in Box-->
+  <div class="text-center">
+    <div class="pricing-header px-10 py-10 pt-md-5 pb-md-4 mx-auto text-center sticky-top">
+      <h1>Sign in</h1>
+    </div>
+    <form action="/login" method="POST">
+      <div>
+        <label>
+          <input type="text" id="email" name="email" class="form-control" placeholder="Email" required>
+        </label>
+      </div>
+      <div style="padding-bottom: 30px;">
+        <label>
+          <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+        </label>
+      </div>
+      <button class="btn btn-primary" type="submit" value="Login" id="submit">Sign in</button>
+    </form>
+    <a href="/register" style="font-size: 0.8rem;">Create account</a>
   </div>
-  <button class="btn btn-primary" type="submit" value="Login" id="submit">Sign in</button>
-</form>
-	<a href="/register">Register</a>	
-</div>
+
+  <!-- Footer -->
+  <footer class="pt-4 my-md-20 border-top text-center fixed-bottom">
+    <div class="row">
+      <div class="col-md">
+        <small class="d-block mb-3 text-muted">&copy; USYD 2020_Semester1_COMP5347 Web Application Development
+          GROUP_29</small>
+      </div>
+    </div>
+  </footer>
