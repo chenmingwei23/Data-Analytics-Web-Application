@@ -8,6 +8,7 @@
 revisions
 bots.txt
 administrators.txt
+node_modules
 
 # User-specific files
 *.suo
