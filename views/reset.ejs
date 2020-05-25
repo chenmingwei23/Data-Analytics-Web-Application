@@ -1,5 +1,5 @@
 <head>
-  <title>Reset</title>
+  <title>Reset Password</title>
   <!-- Bootstrap core CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
     integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -12,7 +12,7 @@
 
   <div class="text-center">
     <div class="pricing-header px-10 py-10 pt-md-5 pb-md-4 mx-auto text-center ">
-      <h1 class="display-4">Your Analytics Journey Starts Here</h1>
+      <h1 class="display-4">Reset your Password</h1>
     </div>
     <form action="/reset" method="POST">
       <div>
@@ -34,14 +34,14 @@
       <div style="padding-bottom: 30px;">
         <label>
           <label for="address">What's your mother's name?</label>       
-          <input type="text" id="question" name="question" class="form-control" placeholder="QuestionForSecurity" required>
+          <input type="text" id="question" name="question" class="form-control" placeholder="Security Question Answer" required>
         </label>
       </div>
 
 
-      <button class="btn btn-primary" type="submit" value="Login" id="submit">Change</button>
+      <button class="btn btn-primary" type="submit" value="Login" id="submit"> Reset </button>
     </form>
-    <a href="/login">Already have an account? Sign In</a>
+    <a href="/login" style="padding-bottom: 30px;">Do not want to reset? Return</a>
   </div>
 
   <!-- Footer -->
