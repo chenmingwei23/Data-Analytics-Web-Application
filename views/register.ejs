@@ -5,32 +5,40 @@
     integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 
-<body class="text-center">
-  <div class="pricing-header px-10 py-10 pt-md-5 pb-md-4 mx-auto text-center ">
-    <h1 class="display-4">Wikipdia Analytics</h1>
+<body>
+
+  <!-- Header -->
+  <%- include ('partial/header.ejs', {active: "None"}) -%>
+
+  <div class="text-center">
+    <div class="pricing-header px-10 py-10 pt-md-5 pb-md-4 mx-auto text-center ">
+      <h1 class="display-4">Your Analytics Journey Starts Here</h1>
+    </div>
+    <form action="/register" method="POST">
+      <div>
+        <label>
+          <input type="text" id="firstname" name="firstname" class="form-control" placeholder="First Name" required>
+        </label>
+      </div>
+      <div>
+        <label>
+          <input type="text" id="lastname" name="lastname" class="form-control" placeholder="Last Name" required>
+        </label>
+      </div>
+      <div>
+        <label>
+          <input type="text" id="email" name="email" class="form-control" placeholder="Email" required>
+        </label>
+      </div>
+      <div style="padding-bottom: 30px;">
+        <label>
+          <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+        </label>
+      </div>
+      <button class="btn btn-primary" type="submit" value="Login" id="submit">Register</button>
+    </form>
+    <a href="/login">Already have an account? Sign In</a>
   </div>
-  <h1>Register</h1>
-  <form action="/register" method="POST">
-    <div>
-      <label>
-        <input type="text" id="firstname" name="firstname" class="form-control" placeholder="First_Name" required>
-      </label>
-    </div>
-    <div>
-      <label>
-        <input type="text" id="lastname" name="lastname" class="form-control" placeholder="Last_Name" required>
-      </label>
-    </div>
-    <div>
-      <label>
-        <input type="text" id="email" name="email" class="form-control" placeholder="Email" required>
-      </label>
-    </div>
-    <div>
-      <label>
-        <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
-      </label>
-    </div>
-    <button class="btn btn-primary" type="submit" value="Login" id="submit">Register</button>
-  </form>
-  <a href="/login">Login</a>
+
+  <!-- Footer -->
+  <%- include ('partial/footer.ejs') -%>
