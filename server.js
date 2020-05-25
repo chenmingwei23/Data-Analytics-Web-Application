@@ -12,7 +12,7 @@ var path = require('path');
 
 
 const app = express()
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcryptjs')
 
 app.use(express.static(__dirname + '/public'));
 app.use(express.urlencoded({ extended: false }))

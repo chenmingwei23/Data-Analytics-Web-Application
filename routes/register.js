@@ -1,6 +1,7 @@
 var express = require("express");
 var router = express.Router();
 var mongoose = require('mongoose');
+var passwordHash = require('password-hash');
 
 /* GET login page*/
 router.get('/', function (req, res, next) {
@@ -8,14 +9,16 @@ router.get('/', function (req, res, next) {
 });
 
 
-router.post('/', function (req, res, next) {
+router.post('/', async (req, res, next) => {
     // get POST form data
-	console.log(req.body);
+	console.log("Register information: "+req.body);
 	var firstname = req.body.firstname;
     var lastname = req.body.lastname;
     var email = req.body.email;
     var password = req.body.password;
-    var userData = {ID:Date.now().toString(), firstname: firstname, lastname: lastname, email: email, password: password};
+    var hashedPassword = passwordHash.generate(password);
+    console.log(hashedPassword);
+    var userData = {ID:Date.now().toString(), firstname: firstname, lastname: lastname, email: email, password: hashedPassword};
 
     //connect DB
     var db = mongoose.createConnection('mongodb://localhost:27017/Assignment2');

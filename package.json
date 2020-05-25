@@ -15,6 +15,7 @@
   "description": "",
   "dependencies": {
     "bcrypt": "^4.0.1",
+    "bcryptjs": "^2.4.3",
     "cookie-parser": "^1.4.5",
     "ejs": "^3.1.2",
     "express": "^4.17.1",
@@ -23,8 +24,10 @@
     "install": "^0.13.0",
     "method-override": "^3.0.0",
     "mongodb": "^2.2.33",
-    "mongoose": "^5.9.12"
- },
+    "mongoose": "^5.9.12",
+    "passport": "^0.4.1",
+    "password-hash": "^1.2.2"
+  },
   "devDependencies": {
     "dotenv": "^8.2.0",
     "nodemon": "^2.0.3"
