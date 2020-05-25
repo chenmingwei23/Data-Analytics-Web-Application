@@ -42,6 +42,11 @@ Extract the zip file and place all files within the main directory.
   - Using Eclipse run as node application
 
   - Using Terminal run 
+  
+  ```
+  'node setupDB.js'
+  ```
+  
   ```
   'node server.js'
   ```
