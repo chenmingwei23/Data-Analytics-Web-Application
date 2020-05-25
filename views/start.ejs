@@ -12,7 +12,7 @@
 <body>
   <!-- Header -->
   <div class="pricing-header px-10 py-10 pb-md-4 mx-auto">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
       <!-- <form action="/login" method="GET" class="text-right col-md-1">
         <button style="display:block" class="btn btn-primary" value="Login"> Sign In </button>
       </form>
@@ -26,23 +26,22 @@
       <a class="navbar-brand" href="/">
         <b> Wikipedia Analytics </b>
       </a>
-      <form action="/login" method="GET" class="form-inline my-2 my-lg-0 col-md-1 ml-auto sticky-top">
-        <button style="display:block" class="btn btn-outline-primary my-2 my-sm-0" value="Login"> Sign In </button>
-      </form>
-      <form action="/reset" method="GET" class="form-inline my-2 my-lg-0 col-md-1 ml-auto sticky-top">
-        <button style="display:block" class="btn btn-outline-primary my-2 my-sm-0" value="Login"> Change Password </button>
-      </form>
+      <div class="ml-auto">
+        <form action="/login" method="GET" style="display:inline; padding-right: 10px;">
+          <button class="btn btn-outline-primary my-2 my-sm-0" value="Login"> Sign In </button>
+        </form>
+      </div>
     </nav>
   </div>
 
   <!-- Body -->
-  <div class="pricing-header px-10 py-10 pt-md-5 pb-md-4 mx-auto text-center">
+  <div class="pricing-header px-10 py-10 pt-md-5 pb-md-4 mx-auto text-center" style="padding-bottom: 30px;">
     <h1 class="display-3" style="color:#505050"> Welcome to Wikipedia Analytics </h1>
     <h2 class="display-4"> Please
       <form action="/login" method="GET" class="form-inline justify-content-center" style="display: inline-block">
         <button class="btn btn-primary" value="Login"> Sign In </button>
       </form>
-    to Continue </h2>
+      to Continue </h2>
   </div>
 
   <!-- Footer  -->

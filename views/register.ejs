@@ -8,9 +8,9 @@
 <body>
 
   <!-- Header -->
-  <%- include ('partial/header.ejs', {active: "None"}) -%>
+  <%- include ('partial/header.ejs') -%>
 
-  <div class="text-center">
+  <div class="text-center" style="padding-bottom: 30px;">
     <div class="pricing-header px-10 py-10 pt-md-5 pb-md-4 mx-auto text-center ">
       <h1 class="display-4">Your Analytics Journey Starts Here</h1>
     </div>
@@ -37,8 +37,8 @@
       </div>
       <div style="padding-bottom: 30px;">
         <label>
-          <label for="address">What's your mother's name?</label>       
-          <input type="text" id="question" name="question" class="form-control" placeholder="QuestionForSecurity" required>
+          <label for="address">What's your mother's first name?</label>
+          <input type="text" id="question" name="question" class="form-control" placeholder="Security Question" required>
         </label>
       </div>
 
