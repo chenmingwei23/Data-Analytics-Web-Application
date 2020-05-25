@@ -33,6 +33,9 @@ Extract the zip file and place all files within the main directory.
     - Get a Mac :)
 
 - Run project
+  - Setup MongoDb first
+    Import revision data to MongoDB with collection name: "revisions"
+    The database should be: "Assignment2"
 
   - Open terminal and navigate to home directory   
   ```
