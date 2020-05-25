@@ -16,7 +16,8 @@ router.post('/', async (req, res, next) => {
     var email = req.body.email;
     var password = req.body.password;
     var hashedPassword = passwordHash.generate(password);
-    var userData = {ID:Date.now().toString(), firstname: firstname, lastname: lastname, email: email, password: hashedPassword};
+    var question = req.body.question;
+    var userData = {ID:Date.now().toString(), firstname: firstname, lastname: lastname, email: email, password: hashedPassword, question:question};
 
     //connect DB
     var db = mongoose.createConnection('mongodb://localhost:27017/Assignment2');
@@ -25,7 +26,8 @@ router.post('/', async (req, res, next) => {
     	firstname: String,
     	firstname: String,
         email: String,
-        password: String
+        password: String,
+        question: String
     });
     var User = db.model('user', Schema);
     
