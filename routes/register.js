@@ -11,13 +11,11 @@ router.get('/', function (req, res, next) {
 
 router.post('/', async (req, res, next) => {
     // get POST form data
-	console.log("Register information: "+req.body);
 	var firstname = req.body.firstname;
     var lastname = req.body.lastname;
     var email = req.body.email;
     var password = req.body.password;
     var hashedPassword = passwordHash.generate(password);
-    console.log(hashedPassword);
     var userData = {ID:Date.now().toString(), firstname: firstname, lastname: lastname, email: email, password: hashedPassword};
 
     //connect DB
@@ -43,11 +41,9 @@ router.post('/', async (req, res, next) => {
         //Correct, store new account in DB
         db.createCollection("users", function(err, res) {
             if (err) throw err;
-            console.log("Collection created!");
           });
         db.collection("users").insertOne(userData, function(err, result) {
             if (err) throw err;
-            console.log("1 document inserted");
             res.render('login.ejs');
             db.close();
          });

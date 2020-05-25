@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Analytics Page</title>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -8,217 +9,276 @@
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript" src="/js/main.js"></script>
 
+    <link href="/css/style.css" rel="stylesheet" type="text/css">
     <!--Bootstrap CSS-->
-    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
 </head>
+
 <body>
-<div class="pricing-header px-10 py-10 pt-md-5 pb-md-4 mx-auto text-center bg-secondary text-warning">
-    <h1 class="display-4">Wikipdia Analytics</h1>
-</div>
-<br>
-<br>
-<main role="main" class="col-md px-4 \">
-    <!--overall-->
-    <div id="overallanalytics" class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 bg-secondary card-body text-center">
-        <h2 class="overallanalyticspoint text-warning text-center" id="overallanalyticspoint">Overall Analytics</h2>
-        
+    <!-- Header -->
+    <div class="pricing-header px-10 py-10 pb-md-4 mx-auto">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="/">
+                <b> Wikipedia Analytics </b>
+            </a>
+            <form action="/logout?_method=DELETE" method="POST" class="col-md-1 ml-auto">
+                <button class="btn btn-outline-primary" type="submit" value="Login"> Sign Out </button>
+            </form>
+        </nav>
     </div>
-    Input the number of revisions:
-    <input id =inputNumber type="text" value ="2">
-    <input class="btn btn-outline-light bg-primary"type="submit" id="getNumber"value="Show">
-    <table class="table">
-    	
-        <tbody>
-        <tr>
-            <table class="table">
-                    <tbody>
-                    <tr>
-                        <th scope="row"><h4 >Books with highest number of revisions </h4></th>
-                        <th scope="row"><h4 >Books with lowest number of revisions </h4></th>
-                    </tr>
-                    <tr>
-                        <th><p id="getHighestRevid"></p></th>
-                        <th><p id="getLowestRevid"></p></th>
-                    </tr>
-                    </tbody>
-            </table>
-        </tr>
-        </tbody>  
-    </table>
-    <table class="table">
-        <tbody>
-        <tr>
-            <table class="table">
-                    <tbody>
-                    <tr>
-                        <th scope="row"><h4 >Books with largest group of registered users</h4></th>
-                        <th scope="row"><h4 >Books with smallest group of registered users</h4></th>
-                    </tr>
-                    <tr>
-                        <th><p id="getLargestGroup"></p></th>
-                        <th><p id="getSmallestGroup"></p></th>
-                    </tr>
-                    </tbody>
-            </table>               
-        </tr>
-        </tbody>  
-    </table>
-    <table class="table ">
-        <tbody>
-        <tr>
-            <table class="table">
-                    <tbody>
-                    <tr>
-                        <th scope="row"><h4 >Books with longest history</h4></th>
-                        <th scope="row"><h4 >Books with shortest history</h4></th>
-                    </tr>
-                    <tr>
-                        <th><p id="getLongestHis"></p></th>
-                        <th><p id="getShortestHis"></p></th>
-                    </tr>
-                    </tbody>
-            </table>               
-        </tr>
-        </tbody>  
-     </table>
-    <div >
-		<p id="barChart"></p>
-	</div>
-	<div>
-		<p id="pieDiscription"></p>
-		<p id="pieChart"></p>
-		
-	</div>
+    <br>
+    <br>
+    <main role="main" class="col-md px-4 \">
+        <!--overall-->
+        <div id="overallanalytics"
+            class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 bg-secondary card-body text-center">
+            <h2 class="overallanalyticspoint text-warning text-center" id="overallanalyticspoint">Overall Analytics</h2>
 
-    
-    <div id="individual" class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 bg-secondary card-body">
-        <h2 class="individualpoint text-warning" id="individualpoint">Individual Article Analytics</h2>
-    </div>
-    Revision Names:
-    <select id="getRevisionNames" ></select>
-    <input class="btn btn-outline-light bg-primary"type="submit" id="getRevision" value="Submit">
-    <h2 id="individualTitle"></h2>
-    <th scope="row"><h4 id="updateRevision"></h4></th>
-    <p id="getRevisionNumber1"></p>
-    <p id="getRevisionNumber2"></p>  
-	<table class="table ">
-	     <tbody>
-	     <tr>
-	         <table class="table">
-	                 <tbody>
-	                 <tr>
-                        <th scope="row"><h4 >Number of revisions</h4></th>
-                     </tr>
-	                 <tr>
-	                     <th><p id="getRevisionNumber"></p></th>
-	                 </tr>
-	                 </tbody>
-	         </table>               
-	     </tr>
-	     </tbody>  
-	  </table>
-	  <table class="table ">
-	     <tbody>
-	     <tr>
-	         <table class="table">
-	                 <tbody>
-	                 <tr>
-                        <th scope="row"><h4 >Top 5 regular users</h4></th>
-                     </tr>
-	                 <tr>
-	                     <th><p id="getTopUser"></p></th>
-	                 </tr>
-	                 </tbody>
-	         </table>               
-	     </tr>
-	     </tbody>  
-	  </table>
-	  <table class="table ">
-	     <tbody>
-	     <tr>
-	         <table class="table">
-	                 <tbody>
-	                 <tr>
-                        <th scope="row"><h4 >Top 3 news</h4></th>
-                     </tr>
-	                 <tr>
-	                     <th><p id="getNews"></p></th>
-	                 </tr>
-	                 </tbody>
-	         </table>               
-	     </tr>
-	     </tbody>  
-	  </table>
-      <div >
-		<p id="barChartIndividual"></p>
-	  </div>
-      <div >
-		<p id="pieChartIndividual"></p>
-	  </div>
-	  <h3>Choose a user from the previous top 5 regular users:</h3>
-      <select id="getUsers" ></select>
-      <input class="btn btn-outline-light bg-primary"type="submit" id="getUserName" value="Submit">
-      <div >
-		<p id="barChartIndividualByUser"></p>
-	  </div>
- 
-    <!--Author-->
-    <div id="author"></div>
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 bg-secondary card-body">
-        <h2 class=" authorpoint text-warning" id="authorpoint">Author Analytics</h2>
-    </div>
-	<div class="ui-widget">
-  		<label for="gerUserName">Input author name: </label>
-  		<input id="gerUserName">
- 		<input class="btn btn-outline-light bg-primary"type="submit" id="getAuthor" value="Submit">
-	</div>
-	<h2 id="userName"></h2>
-	<table class="table ">
-	     <tbody>
-	     <tr>
-	         <table class="table">
-	                 <tbody>
-		                 <tr>
-	                        <h5 id="userCreated"> </h5>
-	                     </tr>
-	                     <tr>
-		                    <select id="getUserRevision" ></select>
-	      					<input class="btn btn-outline-light bg-primary"type="submit"  id="getUserRevisionButton" value="Submit">
-	      				 </tr>
-	                 </tbody>
-	         </table> 
-	         <table class="table">
-	                 <tbody>
-		                 <tr>
-	                         <th><h4 >Revision information: </h4></th>
-	                     </tr>
-	                     <tr>
-	                     	<th><p id="getRevisionTime"></p></th>
-	                     </tr>
-	                 </tbody>
-	         </table>               
-	     </tr>
-	     </tbody>  
-	</table>
-	
-	
-</main>
-
-<footer class="pt-4 my-md-20  border-top text-center">
-      <div class="row">
-        <div class="col-md">
-          <small class="d-block mb-3 text-muted">&copy; USYD 2020_Semester1_COMP5347 Web Application Development GROUP_29</small>
         </div>
-      </div>
- </footer>
+        Input the number of revisions:
+        <input id=inputNumber type="text" value="2">
+        <input class="btn btn-outline-light bg-primary" type="submit" id="getNumber" value="Show">
+        <table class="table">
+
+            <tbody>
+                <tr>
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <th scope="row">
+                                    <h4>Books with highest number of revisions </h4>
+                                </th>
+                                <th scope="row">
+                                    <h4>Books with lowest number of revisions </h4>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <p id="getHighestRevid"></p>
+                                </th>
+                                <th>
+                                    <p id="getLowestRevid"></p>
+                                </th>
+                            </tr>
+                        </tbody>
+                    </table>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table">
+            <tbody>
+                <tr>
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <th scope="row">
+                                    <h4>Books with largest group of registered users</h4>
+                                </th>
+                                <th scope="row">
+                                    <h4>Books with smallest group of registered users</h4>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <p id="getLargestGroup"></p>
+                                </th>
+                                <th>
+                                    <p id="getSmallestGroup"></p>
+                                </th>
+                            </tr>
+                        </tbody>
+                    </table>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table ">
+            <tbody>
+                <tr>
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <th scope="row">
+                                    <h4>Books with longest history</h4>
+                                </th>
+                                <th scope="row">
+                                    <h4>Books with shortest history</h4>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <p id="getLongestHis"></p>
+                                </th>
+                                <th>
+                                    <p id="getShortestHis"></p>
+                                </th>
+                            </tr>
+                        </tbody>
+                    </table>
+                </tr>
+            </tbody>
+        </table>
+        <div>
+            <p id="barChart"></p>
+        </div>
+        <div>
+            <p id="pieDiscription"></p>
+            <p id="pieChart"></p>
+
+        </div>
 
 
-<! -- Bootstrap -->
-<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <div id="individual"
+            class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 bg-secondary card-body">
+            <h2 class="individualpoint text-warning" id="individualpoint">Individual Article Analytics</h2>
+        </div>
+        Revision Names:
+        <select id="getRevisionNames"></select>
+        <input class="btn btn-outline-light bg-primary" type="submit" id="getRevision" value="Submit">
+        <h2 id="individualTitle"></h2>
+        <th scope="row">
+            <h4 id="updateRevision"></h4>
+        </th>
+        <p id="getRevisionNumber1"></p>
+        <p id="getRevisionNumber2"></p>
+        <table class="table ">
+            <tbody>
+                <tr>
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <th scope="row">
+                                    <h4>Number of revisions</h4>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <p id="getRevisionNumber"></p>
+                                </th>
+                            </tr>
+                        </tbody>
+                    </table>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table ">
+            <tbody>
+                <tr>
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <th scope="row">
+                                    <h4>Top 5 regular users</h4>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <p id="getTopUser"></p>
+                                </th>
+                            </tr>
+                        </tbody>
+                    </table>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table ">
+            <tbody>
+                <tr>
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <th scope="row">
+                                    <h4>Top 3 news</h4>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <p id="getNews"></p>
+                                </th>
+                            </tr>
+                        </tbody>
+                    </table>
+                </tr>
+            </tbody>
+        </table>
+        <div>
+            <p id="barChartIndividual"></p>
+        </div>
+        <div>
+            <p id="pieChartIndividual"></p>
+        </div>
+        <h3>Choose a user from the previous top 5 regular users:</h3>
+        <select id="getUsers"></select>
+        <input class="btn btn-outline-light bg-primary" type="submit" id="getUserName" value="Submit">
+        <div>
+            <p id="barChartIndividualByUser"></p>
+        </div>
+
+        <!--Author-->
+        <div id="author"></div>
+        <div
+            class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 bg-secondary card-body">
+            <h2 class=" authorpoint text-warning" id="authorpoint">Author Analytics</h2>
+        </div>
+        <div class="ui-widget">
+            <label for="gerUserName">Input author name: </label>
+            <input id="gerUserName">
+            <input class="btn btn-outline-light bg-primary" type="submit" id="getAuthor" value="Submit">
+        </div>
+        <h2 id="userName"></h2>
+        <table class="table ">
+            <tbody>
+                <tr>
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <h5 id="userCreated"> </h5>
+                            </tr>
+                            <tr>
+                                <select id="getUserRevision"></select>
+                                <input class="btn btn-outline-light bg-primary" type="submit" id="getUserRevisionButton"
+                                    value="Submit">
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <th>
+                                    <h4>Revision information: </h4>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <p id="getRevisionTime"></p>
+                                </th>
+                            </tr>
+                        </tbody>
+                    </table>
+                </tr>
+            </tbody>
+        </table>
+
+
+    </main>
+
+    <!-- Footer -->
+    <%- include ('partial/footer.ejs') -%>
+
+
+    <! -- Bootstrap -->
+        <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+        <script src="https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+        <script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
 
 
 </body>
+
 </html>

@@ -12,7 +12,6 @@ router.get('/', function (req, res, next) {
 /* Receive data of username and password */
 router.post('/', async (req, res, next) => {
 	
-	console.log("Login information: "+req.body);
     var email = req.body.email;
     var password = req.body.password;
 
