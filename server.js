@@ -40,6 +40,9 @@ app.use('/login', login);
 var register = require('./routes/register');
 app.use('/register', register);
 
+var reset = require('./routes/reset');
+app.use('/reset', reset);
+
 var spa = require('./routes/SPA');
 app.use('/SPA', spa);
 
@@ -53,5 +56,10 @@ app.get('/', function (req, res) {
 app.get('/spa', function (req, res) {
     res.render('spa.ejs');
 });
+
+app.get('/reset', function (req, res) {
+    res.render('reset.ejs');
+});
+
 
 app.listen(3000)

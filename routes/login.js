@@ -10,7 +10,7 @@ router.get('/', function (req, res, next) {
 });
 
 /* Receive data of username and password */
-router.post('/', async (req, res, next) => {
+router.post('/', function(req, res, next){
 	
     var email = req.body.email;
     var password = req.body.password;

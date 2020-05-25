@@ -9,7 +9,7 @@ router.get('/', function (req, res, next) {
 });
 
 
-router.post('/', async (req, res, next) => {
+router.post('/', function(req, res, next){
     // get POST form data
 	var firstname = req.body.firstname;
     var lastname = req.body.lastname;
@@ -17,7 +17,7 @@ router.post('/', async (req, res, next) => {
     var password = req.body.password;
     var hashedPassword = passwordHash.generate(password);
     var question = req.body.question;
-    var userData = {ID:Date.now().toString(), firstname: firstname, lastname: lastname, email: email, password: hashedPassword, question:question};
+    var userData = {ID:Date.now().toString(), firstname: firstname, lastname: lastname, email: email, password: hashedPassword, question:question	};
 
     //connect DB
     var db = mongoose.createConnection('mongodb://localhost:27017/Assignment2');
