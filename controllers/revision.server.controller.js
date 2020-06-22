@@ -52,9 +52,14 @@ function requestFromWiki(title,time, callback) {
 	        var json = JSON.parse(data);
 	        console.log(json);
 	        var pages = json.query.pages;
-	        var revisions = pages[Object.keys(pages)[0]].revisions;	
-	        num = revisions.length;
-	        console.log("There are " + revisions.length + " revisions.");
+	        var revisions = pages[Object.keys(pages)[0]].revisions;
+	        if(revisions == null){
+	        	result.num = 0;
+	        	result.timestamp = "";
+	        	return callback(result);
+	        }
+	        //num = revisions.length;
+	        //console.log("There are " + revisions.length + " revisions.");
 	        //console.log(revisions);
 	        result.num = revisions.length;
 	        result.timestamp = revisions[0].timestamp;

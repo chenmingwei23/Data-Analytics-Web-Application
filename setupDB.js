@@ -65,24 +65,30 @@ revision.find({}).skip(0).limit(56947*2).exec(function (err,result) {
     
     
     result.forEach(function(doc){
+    	console.log(doc.title);
+    	if(doc.title == "San Francisco") {
+    		console.log("1");
+    		if(isAdmin(doc)){
+            	doc.set({type: 'admin' });
+            }else if(isBot(doc)){
+            	console.log("ok");
+            	doc.set({type: 'bot' });
+            }else if (isAnon(doc)) {
+            	doc.set({type: 'anon' });
+            }
+            else{
+            	doc.set({type: 'reg' });   
+            }
+            doc.save(function (err) {
+                if(err){
+                    console.log(err);
+                    return;
+                }
+            });
+    	}
 
     	//console.log(doc);
-    	if(isAdmin(doc)){
-        	doc.set({type: 'admin' });
-        }else if(isBot(doc)){
-        	doc.set({type: 'bot' });
-        }else if (isAnon(doc)) {
-        	doc.set({type: 'anon' });
-        }
-        else{
-        	doc.set({type: 'reg' });   
-        }
-        doc.save(function (err) {
-            if(err){
-                console.log(err);
-                return;
-            }
-        });
+    	
 
     })
     console.log("finish!!!");
